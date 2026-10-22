@@ -1,0 +1,148 @@
+# =====================================================================
+#  .gitignore for LaTeX projects
+# =====================================================================
+
+## Core LaTeX / pdfLaTeX / XeLaTeX / LuaLaTeX auxiliary files
+*.aux
+*.lof
+*.log
+*.lot
+*.fls
+*.out
+*.toc
+*.fmt
+*.fot
+*.cb
+*.cb2
+.*.lb
+
+## Intermediate documents
+*.dvi
+*.xdv
+*-converted-to.*
+
+## Generated PDF
+# Uncomment to ignore the compiled PDF (recommended if you track sources only)
+# *.pdf
+# Keep figures in PDF format tracked:
+# !figures/*.pdf
+
+## Bibliography (BibTeX / biber)
+*.bbl
+*.bbl-SAVE-ERROR
+*.bcf
+*.bcf-SAVE-ERROR
+*.blg
+*-blx.aux
+*-blx.bib
+*.run.xml
+
+## Build tools
+*.fdb_latexmk
+*.synctex
+*.synctex(busy)
+*.synctex.gz
+*.synctex.gz(busy)
+*.pdfsync
+*.rubbercache
+rubber.cache
+latex.out/
+build/
+out/
+
+## Packages
+# algorithms
+*.alg
+*.loa
+# cleveref / hyperref
+*.brf
+# glossaries / acronyms
+*.acn
+*.acr
+*.glg
+*.glo
+*.gls
+*.glsdefs
+*.ist
+*.lzo
+*.lzs
+*.slg
+*.slo
+*.sls
+# index (makeidx / imakeidx)
+*.idx
+*.ilg
+*.ind
+# minted
+_minted*
+*.pyg
+# nomenclature
+*.nlg
+*.nlo
+*.nls
+# beamer
+*.nav
+*.pre
+*.snm
+*.vrb
+# listings
+*.lol
+# todonotes
+*.tdo
+# thmtools
+*.loe
+# tikz externalize
+*.dpth
+*.md5
+*.auxlock
+# pythontex
+*.pytxcode
+pythontex-files-*/
+# minitoc
+*.maf
+*.mlf
+*.mlt
+*.mtc[0-9]*
+*.slf[0-9]*
+*.slt[0-9]*
+*.stc[0-9]*
+# xindy
+*.xdy
+# endfloat
+*.ttt
+*.fff
+# changes
+*.soc
+# svg package
+svg-inkscape/
+# comment package
+*.cut
+
+## Editors & IDEs
+# TeXstudio / TeXmaker
+*.bak
+*.sav
+*.tps
+# WinEdt
+*.bak
+*.sav
+# Emacs (AUCTeX)
+auto/
+*~
+\#*\#
+.\#*
+# Vim
+*.swp
+*.swo
+# VS Code (LaTeX Workshop)
+.vscode/
+# JetBrains
+.idea/
+# Kile
+*.backup
+*.kilepr
+
+## Operating system files
+.DS_Store
+Thumbs.db
+desktop.ini

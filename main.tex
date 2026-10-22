@@ -1,0 +1,201 @@
+% =====================================================================
+%  One-column article template
+%  Compile with: pdflatex -> biber -> pdflatex -> pdflatex
+%  (or latexmk -pdf main.tex)
+% =====================================================================
+\documentclass[11pt,a4paper,onecolumn]{article}
+
+% ---------------------------------------------------------------------
+%  Page layout & fonts
+% ---------------------------------------------------------------------
+\usepackage[margin=2.5cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{setspace}
+\onehalfspacing                 % change to \singlespacing if preferred
+
+% ---------------------------------------------------------------------
+%  Mathematics
+% ---------------------------------------------------------------------
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{bm}                 % bold vectors: \bm{x}
+\usepackage{siunitx}            % units: \SI{3}{\nano\tesla}
+\sisetup{separate-uncertainty=true}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+% Handy macros
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\vect}[1]{\bm{#1}}
+\newcommand{\mat}[1]{\mathbf{#1}}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+% ---------------------------------------------------------------------
+%  Figures, tables, algorithms
+% ---------------------------------------------------------------------
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+\usepackage{subcaption}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage[font=small,labelfont=bf]{caption}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{xcolor}
+
+% ---------------------------------------------------------------------
+%  Authors & affiliations
+% ---------------------------------------------------------------------
+\usepackage{authblk}
+\renewcommand\Affilfont{\small}
+
+% ---------------------------------------------------------------------
+%  Bibliography (biblatex + biber)
+% ---------------------------------------------------------------------
+\usepackage[backend=biber,style=numeric-comp,sorting=none,maxbibnames=99]{biblatex}
+\addbibresource{references.bib}
+
+% ---------------------------------------------------------------------
+%  Hyperlinks & smart references (load last)
+% ---------------------------------------------------------------------
+\usepackage[colorlinks=true,linkcolor=blue!60!black,citecolor=green!40!black,urlcolor=blue!60!black]{hyperref}
+\usepackage[capitalise,noabbrev]{cleveref}
+
+% =====================================================================
+%  Title block
+% =====================================================================
+\title{Title of the Article}
+
+\author[1]{Khaled Surname\thanks{Corresponding author: \texttt{email@ensta.fr}}}
+\author[1]{Second Author}
+\author[2]{Third Author}
+\affil[1]{Lab-STICC, UMR CNRS 6285, ENSTA, Brest, France}
+\affil[2]{Other Institution, City, Country}
+
+\date{}  % leave empty, or \today
+
+% =====================================================================
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Write a concise summary (150--250 words): context, problem, proposed
+method, main results, and significance.
+\end{abstract}
+
+\noindent\textbf{Keywords:} keyword one; keyword two; keyword three; keyword four
+
+% ---------------------------------------------------------------------
+\section{Introduction}
+\label{sec:intro}
+Context and motivation. Related work can be cited like this~\cite{example2024}.
+State the contributions clearly:
+\begin{itemize}
+  \item first contribution;
+  \item second contribution;
+  \item third contribution.
+\end{itemize}
+The rest of the paper is organized as follows: \cref{sec:method} presents
+the method, \cref{sec:results} the results, and \cref{sec:conclusion} concludes.
+
+% ---------------------------------------------------------------------
+\section{Problem Formulation and Method}
+\label{sec:method}
+Consider the observation model
+\begin{equation}
+  \vect{y}_k = \mat{H}\,\vect{x}_k + \vect{n}_k,
+  \qquad \vect{n}_k \sim \mathcal{N}(\vect{0}, \mat{R}),
+  \label{eq:model}
+\end{equation}
+where $\vect{x}_k \in \R^n$ is the state. The estimate is obtained by
+\begin{equation}
+  \hat{\vect{x}} = \argmin_{\vect{x}} \; \lVert \vect{y} - \mat{H}\vect{x} \rVert_{\mat{R}^{-1}}^2 .
+\end{equation}
+
+\begin{algorithm}[htbp]
+  \caption{Proposed procedure}
+  \label{alg:main}
+  \begin{algorithmic}[1]
+    \Require Measurements $\{\vect{y}_k\}_{k=1}^{K}$
+    \Ensure Estimate $\hat{\vect{x}}$
+    \State Initialize $\hat{\vect{x}}_0$
+    \For{$k = 1$ to $K$}
+      \State Update estimate using \cref{eq:model}
+    \EndFor
+    \State \Return $\hat{\vect{x}}_K$
+  \end{algorithmic}
+\end{algorithm}
+
+% ---------------------------------------------------------------------
+\section{Results}
+\label{sec:results}
+
+\begin{figure}[htbp]
+  \centering
+  \begin{subfigure}[b]{0.48\textwidth}
+    \centering
+    \fbox{\rule{0pt}{3cm}\rule{0.9\linewidth}{0pt}} % replace with \includegraphics[width=\linewidth]{fig_a}
+    \caption{First panel.}
+    \label{fig:a}
+  \end{subfigure}\hfill
+  \begin{subfigure}[b]{0.48\textwidth}
+    \centering
+    \fbox{\rule{0pt}{3cm}\rule{0.9\linewidth}{0pt}} % replace with \includegraphics[width=\linewidth]{fig_b}
+    \caption{Second panel.}
+    \label{fig:b}
+  \end{subfigure}
+  \caption{Overall caption describing \cref{fig:a,fig:b}.}
+  \label{fig:results}
+\end{figure}
+
+\begin{table}[htbp]
+  \centering
+  \caption{Comparison of methods (mean $\pm$ std).}
+  \label{tab:comparison}
+  \begin{tabular}{lcc}
+    \toprule
+    Method    & RMSE (\si{\metre}) & Runtime (\si{\milli\second}) \\
+    \midrule
+    Baseline  & \num{1.23 +- 0.10} & \num{12.4} \\
+    Proposed  & \textbf{\num{0.87 +- 0.05}} & \num{15.1} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+% ---------------------------------------------------------------------
+\section{Discussion}
+\label{sec:discussion}
+Interpretation of results, limitations, and comparison with prior work.
+
+% ---------------------------------------------------------------------
+\section{Conclusion}
+\label{sec:conclusion}
+Summary of contributions and perspectives for future work.
+
+% ---------------------------------------------------------------------
+\section*{Acknowledgments}
+Funding sources and acknowledgments.
+
+\section*{Data Availability}
+Statement on data and code availability.
+
+% ---------------------------------------------------------------------
+\printbibliography[heading=bibintoc,title={References}]
+
+% ---------------------------------------------------------------------
+\appendix
+\section{Proof or Additional Derivations}
+\label{app:proof}
+Supplementary material.
+
+\end{document}
