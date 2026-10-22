@@ -88,99 +88,13 @@
 \begin{document}
 \maketitle
 
-\begin{abstract}
-Write a concise summary (150--250 words): context, problem, proposed
-method, main results, and significance.
-\end{abstract}
-
-\noindent\textbf{Keywords:} keyword one; keyword two; keyword three; keyword four
+\input{paper/abstract.tex}
 
 % ---------------------------------------------------------------------
-\section{Introduction}
-\label{sec:intro}
-Context and motivation. Related work can be cited like this~\cite{example2024}.
-State the contributions clearly:
-\begin{itemize}
-  \item first contribution;
-  \item second contribution;
-  \item third contribution.
-\end{itemize}
-The rest of the paper is organized as follows: \cref{sec:method} presents
-the method, \cref{sec:results} the results, and \cref{sec:conclusion} concludes.
+\input{paper/introduction.tex}
 
 % ---------------------------------------------------------------------
-\section{Problem Formulation and Method}
-\label{sec:method}
-Consider the observation model
-\begin{equation}
-  \vect{y}_k = \mat{H}\,\vect{x}_k + \vect{n}_k,
-  \qquad \vect{n}_k \sim \mathcal{N}(\vect{0}, \mat{R}),
-  \label{eq:model}
-\end{equation}
-where $\vect{x}_k \in \R^n$ is the state. The estimate is obtained by
-\begin{equation}
-  \hat{\vect{x}} = \argmin_{\vect{x}} \; \lVert \vect{y} - \mat{H}\vect{x} \rVert_{\mat{R}^{-1}}^2 .
-\end{equation}
-
-\begin{algorithm}[htbp]
-  \caption{Proposed procedure}
-  \label{alg:main}
-  \begin{algorithmic}[1]
-    \Require Measurements $\{\vect{y}_k\}_{k=1}^{K}$
-    \Ensure Estimate $\hat{\vect{x}}$
-    \State Initialize $\hat{\vect{x}}_0$
-    \For{$k = 1$ to $K$}
-      \State Update estimate using \cref{eq:model}
-    \EndFor
-    \State \Return $\hat{\vect{x}}_K$
-  \end{algorithmic}
-\end{algorithm}
-
-% ---------------------------------------------------------------------
-\section{Results}
-\label{sec:results}
-
-\begin{figure}[htbp]
-  \centering
-  \begin{subfigure}[b]{0.48\textwidth}
-    \centering
-    \fbox{\rule{0pt}{3cm}\rule{0.9\linewidth}{0pt}} % replace with \includegraphics[width=\linewidth]{fig_a}
-    \caption{First panel.}
-    \label{fig:a}
-  \end{subfigure}\hfill
-  \begin{subfigure}[b]{0.48\textwidth}
-    \centering
-    \fbox{\rule{0pt}{3cm}\rule{0.9\linewidth}{0pt}} % replace with \includegraphics[width=\linewidth]{fig_b}
-    \caption{Second panel.}
-    \label{fig:b}
-  \end{subfigure}
-  \caption{Overall caption describing \cref{fig:a,fig:b}.}
-  \label{fig:results}
-\end{figure}
-
-\begin{table}[htbp]
-  \centering
-  \caption{Comparison of methods (mean $\pm$ std).}
-  \label{tab:comparison}
-  \begin{tabular}{lcc}
-    \toprule
-    Method    & RMSE (\si{\metre}) & Runtime (\si{\milli\second}) \\
-    \midrule
-    Baseline  & \num{1.23 +- 0.10} & \num{12.4} \\
-    Proposed  & \textbf{\num{0.87 +- 0.05}} & \num{15.1} \\
-    \bottomrule
-  \end{tabular}
-\end{table}
-
-% ---------------------------------------------------------------------
-\section{Discussion}
-\label{sec:discussion}
-Interpretation of results, limitations, and comparison with prior work.
-
-% ---------------------------------------------------------------------
-\section{Conclusion}
-\label{sec:conclusion}
-Summary of contributions and perspectives for future work.
+\input{paper/sec_2_geometry_signal_model/section_2.tex}
 
 % ---------------------------------------------------------------------
 \section*{Acknowledgments}
