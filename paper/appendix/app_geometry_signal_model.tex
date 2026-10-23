@@ -1,0 +1,78 @@
+\section{Field of the Cable and the Channel Phases}\label{app:geometry}
+
+\subsection{Field of an Infinite Line Current}\label{app:line_field}
+
+For an infinitely long straight conductor, the Biot--Savart law gives a field of magnitude $\mu_0 I / (2\pi r)$ at the distance $r$, directed along $\hat{I} \times \mathbf{r}/r$, where $\hat{I}$ is the unit vector of the current and $\mathbf{r}$ the vector from the conductor to the point, perpendicular to it. In the CPA frame the cable runs along $\hat{y}$ at $x = 0$, $z = d$, and the sensor is at $(x, \cdot, 0)$, so $\mathbf{r} = (x, 0, -d)$ and $r^{2} = x^{2} + d^{2}$. For a current along $-\hat{y}$, using $\hat{y} \times \hat{x} = -\hat{z}$ and $\hat{y} \times \hat{z} = \hat{x}$,
+\begin{equation}
+    (-\hat{y}) \times (x\,\hat{x} - d\,\hat{z}) = d\,\hat{x} + x\,\hat{z},
+    \qquad
+    \mathbf{B}_s = \frac{\mu_0 I}{2\pi(x^{2}+d^{2})}\,(d,\,0,\,x)
+    = \frac{\mu_0 I}{2\pi d}\left( \frac{1}{1+\tau^{2}},\; 0,\; \frac{\tau}{1+\tau^{2}} \right),
+    \label{eq:app_line_field}
+\end{equation}
+with $\tau = x/d$, which is~\eqref{eq:cable_field}. The opposite current direction changes the sign of $K_p$. For a straight section of finite half-length $\ell$ on each side of the CPA, the field at the CPA is multiplied by $\ell/\sqrt{\ell^{2}+d^{2}}$: at $\ell = 5d$ the infinite-line model is accurate to $2\%$.
+
+\subsection{Expansion of the Total Field and Its Phase}\label{app:total_field_expansion}
+
+A scalar magnetometer, or the norm of a vector magnetometer, measures $|\mathbf{T} + \mathbf{B}_s|$, where $\mathbf{T}$ is the geomagnetic field. With $u = 2\,\mathbf{B}_s\cdot\hat{\mathbf{T}}/|\mathbf{T}| + |\mathbf{B}_s|^{2}/|\mathbf{T}|^{2}$ we have $|\mathbf{T} + \mathbf{B}_s| = |\mathbf{T}|\sqrt{1+u} = |\mathbf{T}|(1 + u/2 - u^{2}/8 + O(u^{3}))$, so, keeping terms up to second order in $|\mathbf{B}_s|/|\mathbf{T}|$,
+\begin{equation}
+    S = |\mathbf{T} + \mathbf{B}_s| - |\mathbf{T}|
+    = \mathbf{B}_s\cdot\hat{\mathbf{T}}
+    + \frac{|\mathbf{B}_s|^{2} - (\mathbf{B}_s\cdot\hat{\mathbf{T}})^{2}}{2|\mathbf{T}|}
+    + O\!\left(\frac{|\mathbf{B}_s|^{3}}{|\mathbf{T}|^{2}}\right),
+    \qquad \hat{\mathbf{T}} = \frac{\mathbf{T}}{|\mathbf{T}|}.
+    \label{eq:app_S_expansion}
+\end{equation}
+The second-order terms equal $|\mathbf{B}_{s\perp}|^{2}/(2|\mathbf{T}|)$, where $\mathbf{B}_{s\perp}$ is the part of $\mathbf{B}_s$ perpendicular to $\mathbf{T}$; they are at most $K_p^{2}/(2|\mathbf{T}|) = 100^{2}/(2 \times 47\,994) = 0.10$~nT at $d = 2$~m, i.e.\ $0.1\%$ of the anomaly. Only the first term is kept in the analysis; all simulations use the exact norm.
+
+The horizontal part of $\hat{\mathbf{T}}$ has magnitude $\cos\delta$ and points to magnetic north, and $\hat{x}$ makes the angle $\psi$ with magnetic north, so $\hat{\mathbf{T}}\cdot\hat{x} = \cos\delta\cos\psi$ and $\hat{\mathbf{T}}\cdot\hat{z} = \sin\delta$ ($\hat{\mathbf{T}}\cdot\hat{y}$ is irrelevant because $B_y = 0$). With~\eqref{eq:app_line_field}, the first-order term is
+\begin{equation}
+    \mathbf{B}_s\cdot\hat{\mathbf{T}}
+    = K_p\left( \frac{\cos\delta\cos\psi}{1+\tau^{2}} + \frac{\sin\delta\;\tau}{1+\tau^{2}} \right)
+    = \sqrt{\frac{\pi}{2}}\,K_p\big( \cos\delta\cos\psi\,\Phi_1 + \sin\delta\,\Phi_2 \big),
+    \label{eq:app_first_order}
+\end{equation}
+which is~\eqref{eq:total_field}, since $1/(1+\tau^{2}) = \sqrt{\pi/2}\,\Phi_1$ and $\tau/(1+\tau^{2}) = \sqrt{\pi/2}\,\Phi_2$. Its amplitude and phase in the sense of~\eqref{eq:channel} are
+\begin{equation}
+    a = \sqrt{A_1^{2} + A_2^{2}} = \sqrt{\frac{\pi}{2}}\,K_p\sqrt{\cos^{2}\delta\cos^{2}\psi + \sin^{2}\delta},
+    \qquad
+    \tan\beta = \frac{A_2}{A_1} = \frac{\tan\delta}{\cos\psi},
+    \label{eq:app_phase}
+\end{equation}
+with $\beta$ in the quadrant of $(A_1, A_2)$. Because $|\cos\psi| \le 1$, $|\tan\beta| \ge \tan\delta$, hence $\delta \le |\beta| \le 180^{\circ} - \delta$. At Brest $\tan\delta = 43\,023/21\,271 = 2.023$ ($\delta = 63.7^{\circ}$); for $\psi = 45^{\circ}$, $\tan\beta = 2.023/0.707 = 2.86$, so $\beta = 70.7^{\circ}$ and $a = 0.95\,\sqrt{\pi/2}\,K_p$.
+
+\subsection{Standard Integrals and Orthonormality}\label{app:obf_integrals}
+
+The integrals used throughout are
+\begin{equation}
+    \int_{-\infty}^{\infty}\frac{\mathrm{d}\tau}{(1+\tau^{2})^{2}} = \frac{\pi}{2},
+    \qquad
+    \int_{-\infty}^{\infty}\frac{\mathrm{d}\tau}{(1+\tau^{2})^{3}} = \frac{3\pi}{8},
+    \qquad
+    \int_{-\infty}^{\infty}\frac{\tau^{2}\,\mathrm{d}\tau}{(1+\tau^{2})^{4}} = \frac{\pi}{16}.
+    \label{eq:app_integrals}
+\end{equation}
+Thus $\int\Phi_1^{2} = (2/\pi)(\pi/2) = 1$, and since $\tau^{2}/(1+\tau^{2})^{2} = 1/(1+\tau^{2}) - 1/(1+\tau^{2})^{2}$, $\int\Phi_2^{2} = (2/\pi)(\pi - \pi/2) = 1$. The product $\Phi_1\Phi_2$ is odd, so $\int\Phi_1\Phi_2 = 0$: the pair~\eqref{eq:obf} is orthonormal over the real line. The last two integrals of~\eqref{eq:app_integrals} give the unit energy of the gradiometer basis~\eqref{eq:grad_obf}.
+
+\subsection{The Analytic Template: Hilbert Pair, Spectrum and Poles}\label{app:analytic_template}
+
+With the Fourier convention $\hat{f}(\omega) = \int f(\tau)\,e^{-i\omega\tau}\,\mathrm{d}\tau$, the transform of $1/(1+\tau^{2})$ is $\pi e^{-|\omega|}$, so
+\begin{equation}
+    \hat{\Phi}_1(\omega) = \sqrt{2\pi}\,e^{-|\omega|},
+    \qquad
+    \hat{\Phi}_2(\omega) = -i\,\mathrm{sgn}(\omega)\,\hat{\Phi}_1(\omega),
+    \label{eq:app_spectra}
+\end{equation}
+the second because the Hilbert transform multiplies a spectrum by $-i\,\mathrm{sgn}\,\omega$, and the inverse transform of $-i\pi\,\mathrm{sgn}(\omega)\,e^{-|\omega|}$ is $\tau/(1+\tau^{2})$; hence $\Phi_2 = \mathcal{H}\{\Phi_1\}$. Two consequences follow.
+
+First, $|\hat{\Phi}_2| = |\hat{\Phi}_1|$, so by the Wiener--Khinchin theorem $\Phi_1$ and $\Phi_2$ have the same autocorrelation function. Equivalently, the analytic template $\Psi = \Phi_1 + i\Phi_2$ of~\eqref{eq:analytic} has the one-sided spectrum
+\begin{equation}
+    \hat{\Psi}(\omega) = \big(1 + \mathrm{sgn}\,\omega\big)\hat{\Phi}_1(\omega)
+    = \begin{cases} 2\sqrt{2\pi}\,e^{-\omega}, & \omega > 0,\\ 0, & \omega < 0,\end{cases}
+    \qquad
+    \int \Psi(\tau)\,\Psi^{*}(\tau - t)\,\mathrm{d}\tau = \frac{4}{2 - it}.
+    \label{eq:app_analytic_spectrum}
+\end{equation}
+Correlating a channel with $\Psi$ is therefore a quadrature receiver, and the modulus of~\eqref{eq:app_analytic_spectrum}, $4/\sqrt{4+t^{2}}$, carries no dependence on the phase $\beta$ of~\eqref{eq:channel_complex}: this is the phase invariance exploited in Section~\ref{sec:detection}, and what record truncation destroys.
+
+Second, $\Psi(\tau) = \sqrt{2/\pi}/(1 - i\tau)$ continues analytically off the real axis as a rational function with the single pole $\tau = -i$. A shifted template $\Psi(\tau - t)$ has its pole at $t - i$, and two rational functions that agree on an interval agree everywhere, so their poles must coincide: for real $t$ this forces $t = 0$. This is the argument used in Appendix~\ref{app:coherence_uniqueness} to show that the subspace coherence of a window with $\mathrm{span}\{\Phi_1, \Phi_2\}$ reaches one at the CPA and nowhere else, and that a wrong template scale $\lambda$ moves the pole to $t - i\lambda$ and so prevents it.
