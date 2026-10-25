@@ -6,6 +6,11 @@
 \documentclass[11pt,a4paper,onecolumn]{article}
 
 % ---------------------------------------------------------------------
+%  Editing
+% ---------------------------------------------------------------------
+\usepackage{xcolor}
+\newcommand{\todo}[1]{\colorbox{yellow}{#1}}
+% ---------------------------------------------------------------------
 %  Page layout & fonts
 % ---------------------------------------------------------------------
 \usepackage[margin=2.5cm]{geometry}
@@ -82,7 +87,7 @@
 \affil[1]{Lab-STICC, UMR CNRS 6285, ENSTA, Brest, France}
 \affil[2]{Other Institution, City, Country}
 
-\date{}  % leave empty, or \today
+\date{ }  % leave empty, or \today
 
 % =====================================================================
 \begin{document}
@@ -95,7 +100,7 @@
 
 % ---------------------------------------------------------------------
 \input{paper/sec_2_geometry_signal_model/section_2.tex}
-
+\input{paper/sec_3_det_loc_trunc/section_3.tex}
 
 % ---------------------------------------------------------------------
 \printbibliography[heading=bibintoc,title={References}]
