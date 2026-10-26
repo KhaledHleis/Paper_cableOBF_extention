@@ -1,0 +1,36 @@
+\section{Extended Observation: Bearing and Standoff From One Crossing}\label{sec:observation}
+
+A validated crossing gives a point on the cable, and the same records also give the cable bearing and the standoff. The point $\mathbf{p}_c$ is the midpoint of the two sensors' fixes, or the vehicle position at the GZ fix. The positions of the two sensors are computed from the navigation solution:
+\begin{equation}
+\mathbf{p}_{UNO,k} = \mathbf{p}_k - \frac{b}{2}\,\hat{\boldsymbol{\ell}}(\chi_k), \qquad \mathbf{p}_{DUO,k} = \mathbf{p}_k + \frac{b}{2}\,\hat{\boldsymbol{\ell}}(\chi_k), \qquad \hat{\boldsymbol{\ell}}(\chi) = (\cos\chi, -\sin\chi).
+\label{eq:sensor_positions}
+\end{equation}
+Here $\mathbf{p}_k$ is the position (East, North) given by the global navigation satellite system (GNSS) at sample $k$, $\chi_k$ the yaw given by the attitude and heading reference system (AHRS) and $\hat{\boldsymbol{\ell}}$ the starboard unit vector.
+
+The classical closed-form estimators of bearing and standoff read the field at individual samples, as a ratio of components or a peak value. At low signal-to-noise ratio (SNR) a single sample is noisy. TDOD, RAT, GRAT and AMP below therefore work on projections of the records onto the cable OBF $\{\Phi_1, \Phi_2\}$ or the gradiometer OBF $\{\Gamma_1, \Gamma_2\}$ of \cref{sec:setup}, which integrate the whole crossing. TRI is kept in its sample-wise form as the reference method of the cable-tracking literature. All of them are in closed form. Constants are treated as nuisance parameters throughout, through a constant column in each least-squares fit, as in the matched-subspace detector with interference~\cite{scharf1994matched}. \Cref{tab:observers} lists the estimators, what each one needs, and the raw-field method it replaces.
+
+\begin{table}[htb]
+\centering
+\small
+\caption{Bearing and standoff estimators of one crossing. $S$ is the total field, Attitude is what the estimator needs from the AHRS, and Form is a closed form, a same-shape ratio or a closed-form step iterated to a fixed point. AMP and TRI also use the bearing, through the normal coordinate~\eqref{eq:normal_coordinate} or the incidence $\theta$.}
+\label{tab:observers}
+\begin{tabular}{@{}llllll@{}}
+\toprule
+Estimator & Channel & Attitude & Current & Form & Raw-field method \\
+\midrule
+TDOD & ZC fixes of $B_z$ & full & no & closed & line through two fixes~\cite{bharti2020semi} \\
+RAT & $B_E$, $B_N$ & full & no & ratio & heading deviation~\cite{xiang2016subsea} \\
+GRAT & $G_E$, $G_N$ & heading & no & ratio & gradient direction~\cite{kdd1998maritime} \\
+FUS & TDOD, RAT, GRAT & as inputs & no & closed & -- \\
+\midrule
+AMP & $B_z$ or $S$ & full or none & yes & fixed point & level, known current~\cite{kdd1998maritime} \\
+TRI & $B_n$, $B_z$, two sensors & full & no & closed & two inclinations~\cite{xiang2016subsea} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\input{paper/sec_4_extended_observation/subsec_1_bearing.tex}
+
+\input{paper/sec_4_extended_observation/subsec_2_standoff.tex}
+
+\input{paper/sec_4_extended_observation/subsec_3_observability.tex}

@@ -1,0 +1,46 @@
+\subsection{Bearing}\label{subsec:bearing}
+
+\paragraph{Time difference of detection (TDOD).}
+Both sensor fixes lie on the cable, so the bearing is the direction that joins them, as in crossing-based trackers~\cite{bharti2020semi}:
+\begin{equation}
+\hat{\varphi}_{TDOD} = \operatorname{atan2}\left(E_{DUO} - E_{UNO},\, N_{DUO} - N_{UNO}\right) \bmod 180^\circ.
+\label{eq:tdod}
+\end{equation}
+$(E, N)$ are the East and North coordinates of each fix in metres, and $\varphi$ is measured clockwise from north. Because it is written in positions, TDOD absorbs speed variations. Along-track errors $\varepsilon_1$ and $\varepsilon_2$ of the UNO and DUO fixes give the bearing error
+\begin{equation}
+\Delta\hat{\varphi}_{TDOD} \simeq \frac{(\varepsilon_2 - \varepsilon_1)\sin^2\theta}{b},
+\label{eq:tdod_error}
+\end{equation}
+which grows with the standoff, since the fix errors scale with $d/\sin\theta$. The two fixes are the ZC fixes of $B_z$, so TDOD depends on the attitude. GZ gives a single fix, so TDOD does not apply to it.
+
+\paragraph{Same-shape ratios.}
+The two other bearings rest on one property. When two channels have the same waveform up to a constant factor, the ratio of their least-squares coefficients on any template equals that factor exactly, whatever the template scale, its position and the truncation of the record (\cref{app:same_shape}). The template only sets the SNR of the result, which is highest when the template matches the waveform.
+
+\paragraph{OBF ratio (RAT).}
+The vector channels are rotated to the North--East--Down (NED) frame with the AHRS attitude. In NED the horizontal anomaly vector is aligned with the cable normal at every sample and follows the even profile $\Phi_1$ (\cref{tab:channels}). Its East and North components, $B_n \sin(\varphi + 90^\circ)$ and $B_n \cos(\varphi + 90^\circ)$, therefore have the same shape, and their ratio gives the normal. This is the heading-deviation relation of~\cite{xiang2016subsea,zhang2024electromagnetic}, written on projections rather than samples:
+\begin{equation}
+\hat{\varphi}_{RAT} = \operatorname{atan2}(Q_E, Q_N) + 90^\circ \bmod 180^\circ,
+\label{eq:rat}
+\end{equation}
+where $Q_j$ is the matched-filter output of $B_j$ at the fix lag, summed over the two sensors,
+\begin{equation}
+Q_j = \sum_{s \in \{UNO, DUO\}} \langle B_{j,s}, \tilde{\Phi}_{1,s} \rangle, \qquad j \in \{E, N\},
+\label{eq:rat_projection}
+\end{equation}
+and $\tilde{\Phi}_{1,s}$ is the unit-norm template $\Phi_1$ centred on the fix of sensor $s$ and made zero-mean over its window, which rejects the offsets of the components (\cref{app:same_shape}). As a same-shape ratio, RAT is exact under truncation and for any template scale, but it needs the full attitude. On the asymmetric windows of a snake leg the slow attitude drift does not cancel and leaks into the bearing.
+
+\paragraph{Gradiometer ratio (GRAT).}
+The horizontal gradiometer vector $(G_E, G_N)$, the horizontal part of $\mathbf{B}_{DUO} - \mathbf{B}_{UNO}$, also lies along the cable normal, with the odd profile $\Gamma_1$~\eqref{eq:grad_obf}. Its two components are again a same-shape pair, and $Q^G_j$ is the matched-filter output of $G_j$ with the template $\Gamma_1$ centred on the fix and made zero-mean over its window:
+\begin{equation}
+\hat{\varphi}_{GRAT} = \operatorname{atan2}(Q^G_E, Q^G_N) + 90^\circ \bmod 180^\circ.
+\label{eq:grat}
+\end{equation}
+This is the direction of the field gradient used with differential sensors~\cite{kdd1998maritime,zeng2023magnetic}, written on projections. Common-mode fields cancel in the difference, tilt errors enter at second order, and only the heading is needed. The amplitude is proportional to $|\cos\theta|$ and vanishes at perpendicular incidence.
+
+\paragraph{Fusion (FUS).}
+Bearings are axial, defined modulo $180^\circ$, so they are fused by an inverse-variance mean of the doubled angle~\cite{mardia2000directional}:
+\begin{equation}
+\hat{\varphi}_{FUS} = \frac{1}{2} \operatorname{atan2}\left(\sum_i w_i \sin 2\hat{\varphi}_i,\, \sum_i w_i \cos 2\hat{\varphi}_i\right), \qquad w_i = \sigma_i^{-2},
+\label{eq:fus}
+\end{equation}
+with $i \in \{\mathrm{TDOD}, \mathrm{RAT}, \mathrm{GRAT}\}$. The $\sigma_i$ are trimmed RMS errors read from tables indexed by standoff and incidence, calibrated on simulated single crossings \todo{(Section 6, E1)}. The weights assume independent errors, which holds only approximately since TDOD and RAT share the AHRS. FUS combines the three bearings when the attitude is trusted, and GRAT is used alone otherwise.

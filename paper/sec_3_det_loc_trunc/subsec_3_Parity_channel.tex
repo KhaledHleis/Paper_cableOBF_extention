@@ -1,1 +1,19 @@
 \subsection{Parity Channels}\label{subsec:parity_channels}
+
+A channel with a constant phase is not affected by truncation. The vertical component $a\,\Phi_2$ is odd about the CPA, and its correlation with the template $\Phi_2$ is an even function of the lag centred at the CPA, under one constraint: the truncation has to be symmetric about the CPA. The extremum of this correlation then marks the crossing, and we call this parity localiser (or zero crossing) ZC.
+
+On a snake leg the record of each sensor is not symmetric about its own crossing. The vehicle centre crosses the cable in the middle of the leg, but a sensor offset by $b/2$ along the lateral axis crosses it earlier or later. In addition, the leg is planned on the estimated cable, so the actual crossing is displaced from the middle of the leg by the error of that estimate, and this asymmetry cannot be compensated in advance.
+
+We therefore localise in two passes.
+\begin{enumerate}
+\item A template of half-width 30 CPA distances gives the coarse extremum $k_0$ of $|m_z \star \Phi_2|$ within $\pm T_s$ of the detection, where $m_z$ is the vertical component and $\star$ denotes correlation.
+\item The template is truncated symmetrically about $k_0$ to the half-width
+\begin{equation}
+w = \min(k_0,\, n-1-k_0) - n_f, \qquad n_f = T_s f_s, \qquad \max(0.5\,T_s f_s,\, 2) \leq w \leq 30\,T_s f_s,
+\label{eq:parity_window}
+\end{equation}
+in samples, so that it matches the truncation of the recorded signal.
+\end{enumerate}
+Here $n$ is the number of samples in the leg and $n_f$ the half-width of the fine search. Every lag within $\pm n_f$ of $k_0$ then sees a complete record over the support of its template, which restores exact parity.
+
+The gradiometer vertical channel $\Delta B_z$ follows $\Gamma_2$~\eqref{eq:grad_obf}, which is even about the crossing of the baseline centre. Its correlation with $\Gamma_2$ is again even in $t$, so the same two-pass search applies (GZ). GZ gives one fix at the vehicle position, whereas ZC gives one fix per sensor and the crossing point is the midpoint of the two fixes.

@@ -1,29 +1,31 @@
-\subsection{Matched Filter and Detection}
+\subsection{Matched Filter and Detection}\label{sec:detection}
 
-Let $ m(\tau) $  be one recorded channel over a leg, expressed in the normalised coordinate \ref{eq:tau}.The matched filter correlates it with the two basis functions centred at the lag $t$ (in CPA distances):
+Let $m(\tau)$ be one recorded channel over a leg, expressed in the normalised coordinate~\eqref{eq:tau}. The matched filter correlates it with the two basis functions centred at the lag $t$ (in CPA distances):
 
 \begin{equation}
     y_i(t) = \int m(\tau)\,\Phi_i(\tau - t)\,\mathrm{d}\tau, \quad i = 1,2, \qquad \mathbf{y}(t) = \big(y_1(t),\, y_2(t)\big)^{\top}
     \label{eq:filter_inf}
 \end{equation}
 
-In the implementation the integral is a sum over samples $m_k$ taken at $\tau_k = k/(f_s T_s)$, with templates sampled on the same grid and normalised to unit Euclidean norm. For a channel \ref{eq:channel} and an unbounded record, \ref{eq:filter_inf} is linear in $(\cos \beta, \sin \beta)$:
+In the implementation the integral is a sum over samples $m_k$ taken at $\tau_k = k/(f_s T_s)$, with templates sampled on the same grid and normalised to unit Euclidean norm. For a channel~\eqref{eq:channel} and an unbounded record, \eqref{eq:filter_inf} is linear in $(\cos \beta, \sin \beta)$:
 
 \begin{equation}
     \mathbf{y}(t) = a\,\mathbf{C}(t)^{\top}\begin{pmatrix}\cos\beta \\ \sin\beta\end{pmatrix}, \qquad \mathbf{C}(t) = \begin{pmatrix} c_{11} & c_{12} \\ c_{21} & c_{22} \end{pmatrix}, \qquad c_{ij}(t) = \int \Phi_i(\tau)\,\Phi_j(\tau - t)\,\mathrm{d}\tau.
     \label{eq:filter_out_decomposed}
 \end{equation}
 
-$c_{ij}(t)$ is the correlation of $\phi_i$ with $\phi_j$ shifted by $t$. The four functions have closed forms \todo{REF TO APPENDEX}:
+$c_{ij}(t)$ is the correlation of $\Phi_i$ with $\Phi_j$ shifted by $t$. The four functions have closed forms (\cref{app:correlations}):
 
 \begin{equation}
     c_{11}(t) = c_{22}(t) = \frac{4}{4 + t^2}, \qquad c_{21}(t) = -c_{12}(t) = \frac{2t}{4 + t^2}.
+    \label{eq:cij}
 \end{equation}
 
 The identity $c_{21} = -c_{12}$ follows from parity alone ($\Phi_1$ even, $\Phi_2$ odd). The identity $c_{22} = c_{11}$ is the consequence of the Hilbert relation announced in Section \ref{subsec:cable_obf}: $\Phi_1$ and $\Phi_2$ have the same autocorrelation. Together they make $\mathbf{C}(t)$ a rotation matrix multiplied by the scalar $2/\sqrt{4 + t^2}$, and a rotation does not change the length of the vector $(\cos\beta, \sin\beta)$. Hence
 
 \begin{equation}
 \|\mathbf{y}(t)\|^2 = y_1^2 + y_2^2 = \frac{4a^2}{4 + t^2} \qquad \text{for every phase } \beta.
+\label{eq:energy_invariance}
 \end{equation}
 
 The energy is maximal at $t = 0$, the CPA, falls to half at $|t| = 2$, and does not depend on which channel is used. With an unbounded record the energy peak therefore locates the crossing for every channel and every geometry.
@@ -35,4 +37,4 @@ The energy is maximal at $t = 0$, the CPA, falls to half at $|t| = 2$, and does 
 \label{eq:energy_inf}
 \end{equation}
 
-$\mathcal{H}_0$ is the hypothesis ``no cable'' and $\mathcal{H}_1$ ``cable''; $\sigma_n$ is the noise standard deviation per sample and $\eta$ the threshold. Under white Gaussian noise, \eqref{eq:detection} is the GLRT for a signal in $\mathrm{span}\{\Phi_1, \Phi_2\}$ with unknown amplitudes \todo{reference my paper and other papers}. With unit-norm, orthogonal templates, $\mathbf{y}$ is then Gaussian with covariance $\sigma_n^2 \mathbf{I}$ under $\mathcal{H}_0$, so $\Lambda$ follows a $\chi^2$ law with 2 degrees of freedom and the false-alarm probability at one lag is $P_{\mathrm{fa}} = \exp(-\eta/2)$ '\todo{(Appendix B.2)}'. The noise of a USV is colored, and a leg contains many lags, so this analytical value does not hold in practice; the threshold is calibrated empirically instead.
+$\mathcal{H}_0$ is the hypothesis ``no cable'' and $\mathcal{H}_1$ ``cable''. $\sigma_n$ is the noise standard deviation per sample and $\eta$ the threshold. Under white Gaussian noise, \eqref{eq:energy_inf} is the GLRT for a signal in $\mathcal{S}$ with unknown amplitudes~\cite{hleis2026obf,kay1998detection,scharf1994matched}. With unit-norm, orthogonal templates, $\mathbf{y}$ is then Gaussian with covariance $\sigma_n^2 \mathbf{I}$ under $\mathcal{H}_0$, so $\Lambda$ follows a $\chi^2$ law with 2 degrees of freedom and the false-alarm probability at one lag is $P_{\mathrm{fa}} = \exp(-\eta/2)$ (\cref{app:h0}). In practice the threshold is calibrated empirically instead.

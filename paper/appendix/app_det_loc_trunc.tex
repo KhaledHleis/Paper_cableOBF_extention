@@ -1,0 +1,71 @@
+\section{Matched Filter and Truncation}\label{app:det_loc_trunc}
+
+\subsection{Closed-Form Correlations}\label{app:correlations}
+
+By Parseval's theorem, with the Fourier convention of \cref{app:analytic_template},
+\begin{equation}
+c_{ij}(t) = \int \Phi_i(\tau)\,\Phi_j(\tau - t)\,\mathrm{d}\tau = \frac{1}{2\pi}\int \hat{\Phi}_i(\omega)\,\hat{\Phi}_j^{*}(\omega)\,e^{i\omega t}\,\mathrm{d}\omega.
+\label{eq:app_parseval}
+\end{equation}
+From~\eqref{eq:app_spectra}, $\hat{\Phi}_1\hat{\Phi}_1^{*} = \hat{\Phi}_2\hat{\Phi}_2^{*} = 2\pi e^{-2|\omega|}$ and $\hat{\Phi}_1\hat{\Phi}_2^{*} = 2\pi\, i\,\mathrm{sgn}(\omega)\, e^{-2|\omega|}$. With the standard integrals $\int e^{-a|\omega|}\cos(\omega t)\,\mathrm{d}\omega = 2a/(a^2 + t^2)$ and $\int_0^\infty e^{-a\omega}\sin(\omega t)\,\mathrm{d}\omega = t/(a^2 + t^2)$ at $a = 2$,
+\begin{equation}
+\begin{aligned}
+c_{11} = c_{22} &= \int e^{-2|\omega|}\,e^{i\omega t}\,\mathrm{d}\omega = \frac{4}{4 + t^2},\\
+c_{12} &= \int i\,\mathrm{sgn}(\omega)\,e^{-2|\omega|}\,e^{i\omega t}\,\mathrm{d}\omega = -2\int_0^\infty e^{-2\omega}\sin(\omega t)\,\mathrm{d}\omega = -\frac{2t}{4 + t^2}.
+\end{aligned}
+\label{eq:app_cij}
+\end{equation}
+Substituting $\tau \to -\tau$ and using the parities of $\Phi_1$ and $\Phi_2$ gives $c_{21}(t) = -c_{12}(t) = 2t/(4 + t^2)$. With $\cos\vartheta = 2/\sqrt{4 + t^2}$ and $\sin\vartheta = t/\sqrt{4 + t^2}$,
+\begin{equation}
+\mathbf{C}(t) = \frac{2}{\sqrt{4 + t^2}}\begin{pmatrix} \cos\vartheta & -\sin\vartheta \\ \sin\vartheta & \cos\vartheta \end{pmatrix},
+\label{eq:app_rotation}
+\end{equation}
+a rotation scaled by $2/\sqrt{4 + t^2}$. Hence $\|\mathbf{C}(t)^{\top}(\cos\beta, \sin\beta)^{\top}\| = 2/\sqrt{4 + t^2}$ for every $\beta$, which is~\eqref{eq:energy_invariance}.
+
+\subsection{Detection Statistic Under the Null Hypothesis}\label{app:h0}
+
+Under $\mathcal{H}_0$ the record is white Gaussian noise of variance $\sigma_n^2$ per sample. With $g_i$ the sampled, unit-norm template $\Phi_i$ centred at the lag, each output $y_i = \sum_k m_k\, g_i[k]$ is Gaussian with variance $\sigma_n^2\|g_i\|^2 = \sigma_n^2$, and the two outputs are uncorrelated because the templates are orthogonal. Hence $\mathbf{y}/\sigma_n \sim \mathcal{N}(\mathbf{0}, \mathbf{I}_2)$, $\Lambda = \|\mathbf{y}\|^2/\sigma_n^2$ follows a $\chi^2$ law with two degrees of freedom, and $P(\Lambda > \eta) = e^{-\eta/2}$. Maximising the Gaussian likelihood ratio over the two unknown amplitudes gives the log-ratio $\|\mathbf{P}_S\mathbf{m}\|^2/(2\sigma_n^2)$, where $\mathbf{P}_S$ projects onto the two templates. For orthonormal templates $\|\mathbf{P}_S\mathbf{m}\|^2 = \|\mathbf{y}\|^2$, so~\eqref{eq:energy_inf} is the GLRT~\cite{kay1998detection,scharf1994matched}.
+
+\subsection{First-Order Displacement of the Energy Peak}\label{app:ep_shift}
+
+\paragraph{Template truncation.}
+Substituting $u = \tau - t$ in~\eqref{eq:truncation_models} gives $y_j(t) = a\sum_i w_i\, c^K_{ij}(t)$, with $\mathbf{w} = (\cos\beta, \sin\beta)$ and
+\begin{equation}
+c^K_{ij}(t) = \int_{-K}^{K} \Phi_i(u + t)\,\Phi_j(u)\,\mathrm{d}u.
+\label{eq:app_cK}
+\end{equation}
+Expanding $\|\mathbf{y}\|^2 = a^2\,\mathbf{w}^{\top}\mathbf{C}^K\mathbf{C}^{K\top}\mathbf{w}$,
+\begin{equation}
+\begin{gathered}
+\frac{\|\mathbf{y}(t)\|^2}{a^2} = \cos^2\beta\, D_1(t) + \sin^2\beta\, D_2(t) + \sin 2\beta\, X(t),\\
+D_1 = c_{11}^2 + c_{12}^2, \qquad D_2 = c_{21}^2 + c_{22}^2, \qquad X = c_{11}c_{21} + c_{12}c_{22}.
+\end{gathered}
+\label{eq:app_energy_expansion}
+\end{equation}
+At $t = 0$ the off-diagonal terms vanish, because their integrands are odd on a symmetric interval, and the diagonal terms are the truncated energies~\eqref{eq:trunc_energy_diff}, obtained with $\int \mathrm{d}u/(1+u^2)^2 = \tfrac{1}{2}\left(u/(1+u^2) + \arctan u\right)$. Hence $X(0) = 0$. The derivatives at $t = 0$ are the integrals of $\Phi_i'\Phi_j$ over $[-K, K]$. The diagonal ones vanish because $\Phi_i'\Phi_i$ is odd, so $D_1$ and $D_2$ are stationary at $t = 0$, and
+\begin{equation}
+\begin{aligned}
+X'(0) &= E_1\, c^{K\prime}_{21}(0) + E_2\, c^{K\prime}_{12}(0) = E_1 I(K) + E_2\left(2\Phi_1(K)\Phi_2(K) - I(K)\right)\\
+&= I(K)\,(E_1 - E_2) + 2E_2\,\Phi_1(K)\,\Phi_2(K),
+\end{aligned}
+\label{eq:app_Xprime}
+\end{equation}
+where $I(K)$ is the integral of $\Phi_1\Phi_2'$ over $[-K, K]$. The second step integrates by parts and uses the oddness of $\Phi_1\Phi_2$. Now $\Phi_1\Phi_2' = (2/\pi)(1 - u^2)/(1 + u^2)^3$, whose integral over the real line is $1/2$ by~\eqref{eq:app_integrals}, and whose tails decay as $u^{-4}$, so $I(K) = 1/2 + O(K^{-3})$. Moreover $E_1 - E_2 = 4/(\pi K) + O(K^{-3})$ and $\Phi_1(K)\Phi_2(K) = O(K^{-3})$, therefore
+\begin{equation}
+X'(0) = \frac{2}{\pi K} + O(K^{-3}).
+\label{eq:app_Xprime_asym}
+\end{equation}
+Near $t = 0$ the phase-independent part $D = \cos^2\beta\, D_1 + \sin^2\beta\, D_2$ behaves as $D(0) + D''(0)\,t^2/2$. With full support $D_1 = D_2 = 4/(4 + t^2)$, whose second derivative at $t = 0$ is $-1/2$, and truncation changes it by $O(1/K)$. Maximising $D(0) + D''(0)\,t^2/2 + \sin 2\beta\, X'(0)\, t$ over $t$ gives
+\begin{equation}
+\hat{\tau}_{\mathrm{EP}} = \sin 2\beta\,\frac{X'(0)}{|D''(0)|} = \frac{4}{\pi K}\,\sin 2\beta + O(K^{-2}),
+\label{eq:app_ep_shift}
+\end{equation}
+which is~\eqref{eq:ep_shift}. Evaluated exactly, the finite-$K$ coefficient $X'(0)/|D''(0)|$ is very close to $4/(\pi K)$ from moderate pass lengths on. The expansion neglects the terms of the energy that are cubic in $t$, which is why the exact displacement exceeds the first-order value on short passes (\cref{fig:truncation}b).
+
+\paragraph{Record truncation.}
+Here $\tilde{c}_{ij}(t)$ is the integral of $\Phi_i(\tau)\,\Phi_j(\tau - t)$ over $|\tau| \leq K$, so its derivative at $t = 0$ is minus the integral of $\Phi_i\Phi_j'$ over $[-K, K]$. The same steps give
+\begin{equation}
+\tilde{X}'(0) = I(K)\,(E_1 - E_2) - 2E_1\,\Phi_1(K)\,\Phi_2(K),
+\label{eq:app_Xprime_record}
+\end{equation}
+with the same leading term $2/(\pi K)$ and therefore the same asymptotic law.

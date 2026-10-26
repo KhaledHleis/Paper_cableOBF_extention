@@ -1,16 +1,4 @@
-\section{Field of the Cable and the Channel Phases}\label{app:geometry}
-
-\subsection{Field of an Infinite Line Current}\label{app:line_field}
-
-For an infinitely long straight conductor, the Biot--Savart law gives a field of magnitude $\mu_0 I / (2\pi r)$ at the distance $r$, directed along $\hat{I} \times \mathbf{r}/r$, where $\hat{I}$ is the unit vector of the current and $\mathbf{r}$ the vector from the conductor to the point, perpendicular to it. In the CPA frame the cable runs along $\hat{y}$ at $x = 0$, $z = d$, and the sensor is at $(x, \cdot, 0)$, so $\mathbf{r} = (x, 0, -d)$ and $r^{2} = x^{2} + d^{2}$. For a current along $-\hat{y}$, using $\hat{y} \times \hat{x} = -\hat{z}$ and $\hat{y} \times \hat{z} = \hat{x}$,
-\begin{equation}
-    (-\hat{y}) \times (x\,\hat{x} - d\,\hat{z}) = d\,\hat{x} + x\,\hat{z},
-    \qquad
-    \mathbf{B}_s = \frac{\mu_0 I}{2\pi(x^{2}+d^{2})}\,(d,\,0,\,x)
-    = \frac{\mu_0 I}{2\pi d}\left( \frac{1}{1+\tau^{2}},\; 0,\; \frac{\tau}{1+\tau^{2}} \right),
-    \label{eq:app_line_field}
-\end{equation}
-with $\tau = x/d$, which is~\eqref{eq:cable_field}. The opposite current direction changes the sign of $K_p$. For a straight section of finite half-length $\ell$ on each side of the CPA, the field at the CPA is multiplied by $\ell/\sqrt{\ell^{2}+d^{2}}$: at $\ell = 5d$ the infinite-line model is accurate to $2\%$.
+\section{Total Field and Cable Basis Functions}\label{app:geometry}
 
 \subsection{Expansion of the Total Field and Its Phase}\label{app:total_field_expansion}
 
@@ -23,9 +11,9 @@ A scalar magnetometer, or the norm of a vector magnetometer, measures $|\mathbf{
     \qquad \hat{\mathbf{T}} = \frac{\mathbf{T}}{|\mathbf{T}|}.
     \label{eq:app_S_expansion}
 \end{equation}
-The second-order terms equal $|\mathbf{B}_{s\perp}|^{2}/(2|\mathbf{T}|)$, where $\mathbf{B}_{s\perp}$ is the part of $\mathbf{B}_s$ perpendicular to $\mathbf{T}$; they are at most $K_p^{2}/(2|\mathbf{T}|) = 100^{2}/(2 \times 47\,994) = 0.10$~nT at $d = 2$~m, i.e.\ $0.1\%$ of the anomaly. Only the first term is kept in the analysis; all simulations use the exact norm.
+The second-order terms equal $|\mathbf{B}_{s\perp}|^{2}/(2|\mathbf{T}|)$, where $\mathbf{B}_{s\perp}$ is the part of $\mathbf{B}_s$ perpendicular to $\mathbf{T}$. They are at most $K_p^{2}/(2|\mathbf{T}|) = 100^{2}/(2 \times 47\,994) = 0.10$~nT at $d = 2$~m, i.e.\ $0.1\%$ of the anomaly. Only the first term is kept in the analysis, and all simulations use the exact norm.
 
-The horizontal part of $\hat{\mathbf{T}}$ has magnitude $\cos\delta$ and points to magnetic north, and $\hat{x}$ makes the angle $\psi$ with magnetic north, so $\hat{\mathbf{T}}\cdot\hat{x} = \cos\delta\cos\psi$ and $\hat{\mathbf{T}}\cdot\hat{z} = \sin\delta$ ($\hat{\mathbf{T}}\cdot\hat{y}$ is irrelevant because $B_y = 0$). With~\eqref{eq:app_line_field}, the first-order term is
+The horizontal part of $\hat{\mathbf{T}}$ has magnitude $\cos\delta$ and points to magnetic north, and $\hat{x}$ makes the angle $\psi$ with magnetic north, so $\hat{\mathbf{T}}\cdot\hat{x} = \cos\delta\cos\psi$ and $\hat{\mathbf{T}}\cdot\hat{z} = \sin\delta$ ($\hat{\mathbf{T}}\cdot\hat{y}$ is irrelevant because $B_y = 0$). With~\eqref{eq:cable_field}, the first-order term is
 \begin{equation}
     \mathbf{B}_s\cdot\hat{\mathbf{T}}
     = K_p\left( \frac{\cos\delta\cos\psi}{1+\tau^{2}} + \frac{\sin\delta\;\tau}{1+\tau^{2}} \right)
@@ -39,7 +27,7 @@ which is~\eqref{eq:total_field}, since $1/(1+\tau^{2}) = \sqrt{\pi/2}\,\Phi_1$ a
     \tan\beta = \frac{A_2}{A_1} = \frac{\tan\delta}{\cos\psi},
     \label{eq:app_phase}
 \end{equation}
-with $\beta$ in the quadrant of $(A_1, A_2)$. Because $|\cos\psi| \le 1$, $|\tan\beta| \ge \tan\delta$, hence $\delta \le |\beta| \le 180^{\circ} - \delta$. At Brest $\tan\delta = 43\,023/21\,271 = 2.023$ ($\delta = 63.7^{\circ}$); for $\psi = 45^{\circ}$, $\tan\beta = 2.023/0.707 = 2.86$, so $\beta = 70.7^{\circ}$ and $a = 0.95\,\sqrt{\pi/2}\,K_p$.
+with $\beta$ in the quadrant of $(A_1, A_2)$. Because $|\cos\psi| \le 1$, $|\tan\beta| \ge \tan\delta$, hence $\delta \le |\beta| \le 180^{\circ} - \delta$. At Brest $\tan\delta = 43\,023/21\,271 = 2.023$ ($\delta = 63.7^{\circ}$). For $\psi = 45^{\circ}$, $\tan\beta = 2.023/0.707 = 2.86$, so $\beta = 70.7^{\circ}$ and $a = 0.95\,\sqrt{\pi/2}\,K_p$.
 
 \subsection{Standard Integrals and Orthonormality}\label{app:obf_integrals}
 
@@ -63,7 +51,7 @@ With the Fourier convention $\hat{f}(\omega) = \int f(\tau)\,e^{-i\omega\tau}\,\
     \hat{\Phi}_2(\omega) = -i\,\mathrm{sgn}(\omega)\,\hat{\Phi}_1(\omega),
     \label{eq:app_spectra}
 \end{equation}
-the second because the Hilbert transform multiplies a spectrum by $-i\,\mathrm{sgn}\,\omega$, and the inverse transform of $-i\pi\,\mathrm{sgn}(\omega)\,e^{-|\omega|}$ is $\tau/(1+\tau^{2})$; hence $\Phi_2 = \mathcal{H}\{\Phi_1\}$. Two consequences follow.
+the second because the Hilbert transform multiplies a spectrum by $-i\,\mathrm{sgn}\,\omega$, and the inverse transform of $-i\pi\,\mathrm{sgn}(\omega)\,e^{-|\omega|}$ is $\tau/(1+\tau^{2})$, hence $\Phi_2 = \mathcal{H}\{\Phi_1\}$. Two consequences follow.
 
 First, $|\hat{\Phi}_2| = |\hat{\Phi}_1|$, so by the Wiener--Khinchin theorem $\Phi_1$ and $\Phi_2$ have the same autocorrelation function. Equivalently, the analytic template $\Psi = \Phi_1 + i\Phi_2$ of~\eqref{eq:analytic} has the one-sided spectrum
 \begin{equation}
@@ -75,4 +63,4 @@ First, $|\hat{\Phi}_2| = |\hat{\Phi}_1|$, so by the Wiener--Khinchin theorem $\P
 \end{equation}
 Correlating a channel with $\Psi$ is therefore a quadrature receiver, and the modulus of~\eqref{eq:app_analytic_spectrum}, $4/\sqrt{4+t^{2}}$, carries no dependence on the phase $\beta$ of~\eqref{eq:channel_complex}: this is the phase invariance exploited in Section~\ref{sec:detection}, and what record truncation destroys.
 
-Second, $\Psi(\tau) = \sqrt{2/\pi}/(1 - i\tau)$ continues analytically off the real axis as a rational function with the single pole $\tau = -i$. A shifted template $\Psi(\tau - t)$ has its pole at $t - i$, and two rational functions that agree on an interval agree everywhere, so their poles must coincide: for real $t$ this forces $t = 0$. This is the argument used in Appendix~\ref{app:coherence_uniqueness} to show that the subspace coherence of a window with $\mathrm{span}\{\Phi_1, \Phi_2\}$ reaches one at the CPA and nowhere else, and that a wrong template scale $\lambda$ moves the pole to $t - i\lambda$ and so prevents it.
+Second, $\Psi(\tau) = \sqrt{2/\pi}/(1 - i\tau)$ continues analytically off the real axis as a rational function with the single pole $\tau = -i$. A shifted template $\Psi(\tau - t)$ has its pole at $t - i$, and two rational functions that agree on an interval agree everywhere, so their poles must coincide: for real $t$ this forces $t = 0$. Hence a window of the record lies in the span of the shifted pair only at $t = 0$: the subspace coherence of a window with $\mathrm{span}\{\Phi_1, \Phi_2\}$ reaches one at the CPA and nowhere else, and a wrong template scale $\lambda$, which moves the pole to $t - i\lambda$, prevents it from reaching one at all.\label{app:coherence_uniqueness}

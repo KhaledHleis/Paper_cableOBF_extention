@@ -1,0 +1,45 @@
+\section{Bearing and Standoff From One Crossing}\label{app:observation}
+
+\subsection{Same-Shape Ratios}\label{app:same_shape}
+
+Let two channels share the waveform $s(t)$ up to a factor $r$, $m_A = r\, s + c_A + n_A$ and $m_B = s + c_B + n_B$, with constants $c_A, c_B$ and noises $n_A, n_B$. Fitting a template $g$ with a constant column by least squares gives the coefficient
+\begin{equation}
+\hat{a}(m) = \frac{\langle m - \bar{m},\, g - \bar{g} \rangle}{\| g - \bar{g} \|^2},
+\label{eq:app_ls_coefficient}
+\end{equation}
+where the bar denotes the mean over the samples used and $\langle \cdot, \cdot \rangle$ the sum over those samples. $\hat{a}$ is linear in $m$ and blind to constants, so without noise $\hat{a}(m_A)/\hat{a}(m_B) = r$ for every template with $\langle s - \bar{s},\, g - \bar{g} \rangle \neq 0$. The result does not depend on the scale or the position of $g$, nor on which samples exist, so it holds for every truncation of the record.
+
+Noise changes only the variance. Under white noise of variance $\sigma^2$, with $\tilde{s} = s - \bar{s}$ and $\tilde{g} = g - \bar{g}$, the SNR of $\hat{a}(m_B)$ is $\langle \tilde{s}, \tilde{g} \rangle^2 / (\sigma^2 \|\tilde{g}\|^2)$. The Cauchy--Schwarz inequality bounds it by $\|\tilde{s}\|^2/\sigma^2$, with equality when $\tilde{g}$ is proportional to $\tilde{s}$. The matched template is therefore the best choice, and a mismatched one costs SNR but adds no bias.
+
+With a zero-mean template, $\hat{a}(m) = \langle m, \tilde{g} \rangle / \|\tilde{g}\|^2$, so the matched-filter output $\langle m, \tilde{g} \rangle / \|\tilde{g}\|$ differs from the least-squares coefficient only by the factor $\|\tilde{g}\|$, which is common to the two channels and cancels in the ratio. This is why RAT and GRAT can use the matched-filter outputs directly. Without the zero-mean step an offset $c$ adds $c\sum_k g_k$ to the output, and since the bell $\Phi_1$ has a large sum, an offset of a few nanoteslas is enough to bias the ratio noticeably. Absolute coefficients, as in AMP, still need the least-squares fit, because $\Phi_1$ and $\Phi_2$ are not orthogonal on a truncated window.
+
+For RAT, $B_E = \sin(\varphi + 90^\circ)\, B_n$ and $B_N = \cos(\varphi + 90^\circ)\, B_n$, so $\operatorname{atan2}(Q_E, Q_N) = \varphi + 90^\circ$, modulo $180^\circ$ when the common factor is negative. Summing the outputs of the two sensors keeps the ratio, because the factors $\sin(\varphi + 90^\circ)$ and $\cos(\varphi + 90^\circ)$ are common to both. For GRAT the same holds with $\Delta B_n$ in place of $B_n$, since the horizontal gradiometer vector lies along the normal. The ratio stops being exact when one channel contains a term that the other does not share, such as the leakage of an attitude error into the vector components, and this is what limits RAT.
+
+\subsection{Amplitude With Known Current}\label{app:amp}
+
+\paragraph{Coefficients.}
+From~\eqref{eq:total_field}, $A_2 = \sqrt{\pi/2}\,K_p \sin\delta$ comes from the vertical part of $\hat{\mathbf{T}}$ and the vertical cable field, neither of which depends on the cable direction. The vertical component is $B_z = K_p\,\tau/(1 + \tau^2) = \sqrt{\pi/2}\,K_p\,\Phi_2$, so its $\Phi_2$ coefficient is $A_z = \sqrt{\pi/2}\,K_p$. With $K_p = \mu_0 I/(2\pi d)$ both give~\eqref{eq:amp}. The inclination $\delta$ is taken from a geomagnetic reference model~\cite{alken2021igrf}. $A_1$ is not used, since it depends on $\psi$, hence on the bearing, and as the coefficient of the even $\Phi_1$ it is the one most confounded with slow background variations on a short record.
+
+\paragraph{Fixed point.}
+Let $\lambda = d_j/d$ be the ratio of the template scale to the true standoff. On an unbounded record the columns $\Phi_1(\tau/\lambda)$, $\Phi_2(\tau/\lambda)$ and $1$ decouple, $\Phi_1(\tau)$ does not project onto the odd $\Phi_2(\tau/\lambda)$, and the $\Phi_2$ coefficient is
+\begin{equation}
+\hat{A}(\lambda) = A\,\frac{\langle \Phi_2(\tau), \Phi_2(\tau/\lambda) \rangle}{\langle \Phi_2(\tau/\lambda), \Phi_2(\tau/\lambda) \rangle} = \frac{2A}{1 + \lambda},
+\label{eq:app_amp_scale}
+\end{equation}
+using $\langle \Phi_2(\tau/\lambda), \Phi_2(\tau/\lambda) \rangle = \lambda$ and $\int \tau^2/[(1 + \tau^2)(\lambda^2 + \tau^2)]\,\mathrm{d}\tau = \pi/(1 + \lambda)$, obtained by partial fractions. Substituting into~\eqref{eq:amp_iteration} gives
+\begin{equation}
+d_{j+1} = d\,\frac{1 + \lambda}{2} = \frac{d + d_j}{2},
+\label{eq:app_amp_contraction}
+\end{equation}
+so the iteration converges to $d$ and each step halves the error. On a truncated record~\eqref{eq:app_amp_scale} no longer holds, but $d$ remains a fixed point: at $\lambda = 1$ the template matches the record exactly on whatever samples exist, so without noise $\hat{A}(1) = A$ for every truncation. Numerically, the ratio of successive errors approaches $1/2$ on long passes and is much smaller on the short passes of a snake leg, including asymmetric ones. The starting value only changes the number of iterations.
+
+\paragraph{Bearing error.}
+Let a sample lie at the track distance $s$ from the crossing. Then $(\mathbf{p}_s - \mathbf{p}_c)\cdot\hat{\mathbf{n}} = s\sin\theta = x$ and $(\mathbf{p}_s - \mathbf{p}_c)\cdot\hat{\mathbf{u}} = x\cot\theta$, with $\hat{\mathbf{u}}$ the unit vector along the cable. A bearing error $\Delta\varphi$ changes $\hat{\mathbf{n}}$ into $\hat{\mathbf{n}} - \Delta\varphi\,\hat{\mathbf{u}}$, so the computed coordinate is $x' = x(1 - \epsilon)$ with $\epsilon = \Delta\varphi\cot\theta$. A fit of the profile shape in $x'$ would return the relative standoff error $-\epsilon$. In AMP a template at scale $d_j$ in $x'$ has the scale $d_j/(1 - \epsilon)$ in $x$. Let $\kappa$ be the error ratio of the iteration, so that $|\hat{A}(\lambda)| \simeq |A|\,[1 - \kappa(\lambda - 1)]$ near $\lambda = 1$. Linearising~\eqref{eq:amp_iteration} gives the fixed point
+\begin{equation}
+\frac{\hat{d} - d}{d} \simeq \frac{\kappa}{1 - \kappa}\,\epsilon.
+\label{eq:app_amp_bearing}
+\end{equation}
+On a long pass, where $\kappa = 1/2$, AMP and a shape fit have errors of the same magnitude. On a snake leg $\kappa$ is small and AMP keeps only a small part of the shape-fit error.
+
+\paragraph{Other sensitivities.}
+The relative error of $\hat{d}$ is the sum of the relative errors of $I$ and of $\hat{A}$, and the error of the inclination is negligible for a reference-model value. Heave changes $d$ itself. A fix error mixes part of $A_1$ into the $\Phi_2$ coefficient of the total field, but the mixing is weak because $|A_1/A_2| = |\cos\psi|\cot\delta$ is small at high magnetic inclination, and for $B_z$ it only enters at second order. For $B_z$, a linear drift of the attitude leakage over the leg is odd and projects partly onto $\Phi_2$, which is how the attitude error enters AMP when it uses the vector channel.
