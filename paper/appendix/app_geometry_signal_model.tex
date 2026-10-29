@@ -53,7 +53,7 @@ With the Fourier convention $\hat{f}(\omega) = \int f(\tau)\,e^{-i\omega\tau}\,\
 \end{equation}
 the second because the Hilbert transform multiplies a spectrum by $-i\,\mathrm{sgn}\,\omega$, and the inverse transform of $-i\pi\,\mathrm{sgn}(\omega)\,e^{-|\omega|}$ is $\tau/(1+\tau^{2})$, hence $\Phi_2 = \mathcal{H}\{\Phi_1\}$. Two consequences follow.
 
-First, $|\hat{\Phi}_2| = |\hat{\Phi}_1|$, so by the Wiener--Khinchin theorem $\Phi_1$ and $\Phi_2$ have the same autocorrelation function. Equivalently, the analytic template $\Psi = \Phi_1 + i\Phi_2$ of~\eqref{eq:analytic} has the one-sided spectrum
+First, $|\hat{\Phi}_2| = |\hat{\Phi}_1|$, so by the Wiener--Khinchin theorem~\cite{wiener1930generalized,khintchine1934korrelationstheorie,bracewell2000fourier} $\Phi_1$ and $\Phi_2$ have the same autocorrelation function. Equivalently, the analytic template $\Psi = \Phi_1 + i\Phi_2$ of~\eqref{eq:analytic} has the one-sided spectrum
 \begin{equation}
     \hat{\Psi}(\omega) = \big(1 + \mathrm{sgn}\,\omega\big)\hat{\Phi}_1(\omega)
     = \begin{cases} 2\sqrt{2\pi}\,e^{-\omega}, & \omega > 0,\\ 0, & \omega < 0,\end{cases}

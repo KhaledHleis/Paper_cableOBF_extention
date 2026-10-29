@@ -14,7 +14,7 @@ $(E, N)$ are the East and North coordinates of each fix in metres, and $\varphi$
 which grows with the standoff, since the fix errors scale with $d/\sin\theta$. The two fixes are the ZC fixes of $B_z$, so TDOD depends on the attitude. GZ gives a single fix, so TDOD does not apply to it.
 
 \paragraph{Same-shape ratios.}
-The two other bearings rest on one property. When two channels have the same waveform up to a constant factor, the ratio of their least-squares coefficients on any template equals that factor exactly, whatever the template scale, its position and the truncation of the record (\cref{app:same_shape}). The template only sets the SNR of the result, which is highest when the template matches the waveform.
+The two other bearings rest on one property. When two channels have the same waveform up to a constant factor, the ratio of their least-squares coefficients on any template equals that factor exactly, whatever the template scale, its position and the truncation of the record (Appendix~\ref{app:same_shape}). The template only sets the SNR of the result, which is highest when the template matches the waveform.
 
 \paragraph{OBF ratio (RAT).}
 The vector channels are rotated to the North--East--Down (NED) frame with the AHRS attitude. In NED the horizontal anomaly vector is aligned with the cable normal at every sample and follows the even profile $\Phi_1$ (\cref{tab:channels}). Its East and North components, $B_n \sin(\varphi + 90^\circ)$ and $B_n \cos(\varphi + 90^\circ)$, therefore have the same shape, and their ratio gives the normal. This is the heading-deviation relation of~\cite{xiang2016subsea,zhang2024electromagnetic}, written on projections rather than samples:
@@ -27,7 +27,7 @@ where $Q_j$ is the matched-filter output of $B_j$ at the fix lag, summed over th
 Q_j = \sum_{s \in \{UNO, DUO\}} \langle B_{j,s}, \tilde{\Phi}_{1,s} \rangle, \qquad j \in \{E, N\},
 \label{eq:rat_projection}
 \end{equation}
-and $\tilde{\Phi}_{1,s}$ is the unit-norm template $\Phi_1$ centred on the fix of sensor $s$ and made zero-mean over its window, which rejects the offsets of the components (\cref{app:same_shape}). As a same-shape ratio, RAT is exact under truncation and for any template scale, but it needs the full attitude. On the asymmetric windows of a snake leg the slow attitude drift does not cancel and leaks into the bearing.
+and $\tilde{\Phi}_{1,s}$ is the unit-norm template $\Phi_1$ centred on the fix of sensor $s$ and made zero-mean over its window, which rejects the offsets of the components (Appendix~\ref{app:same_shape}). As a same-shape ratio, RAT is exact under truncation and for any template scale, but it needs the full attitude. On the asymmetric windows of a snake leg the slow attitude drift does not cancel and leaks into the bearing.
 
 \paragraph{Gradiometer ratio (GRAT).}
 The horizontal gradiometer vector $(G_E, G_N)$, the horizontal part of $\mathbf{B}_{DUO} - \mathbf{B}_{UNO}$, also lies along the cable normal, with the odd profile $\Gamma_1$~\eqref{eq:grad_obf}. Its two components are again a same-shape pair, and $Q^G_j$ is the matched-filter output of $G_j$ with the template $\Gamma_1$ centred on the fix and made zero-mean over its window:

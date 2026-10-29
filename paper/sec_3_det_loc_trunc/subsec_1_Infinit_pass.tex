@@ -14,7 +14,7 @@ In the implementation the integral is a sum over samples $m_k$ taken at $\tau_k 
     \label{eq:filter_out_decomposed}
 \end{equation}
 
-$c_{ij}(t)$ is the correlation of $\Phi_i$ with $\Phi_j$ shifted by $t$. The four functions have closed forms (\cref{app:correlations}):
+$c_{ij}(t)$ is the correlation of $\Phi_i$ with $\Phi_j$ shifted by $t$. The four functions have closed forms (Appendix~\ref{app:correlations}):
 
 \begin{equation}
     c_{11}(t) = c_{22}(t) = \frac{4}{4 + t^2}, \qquad c_{21}(t) = -c_{12}(t) = \frac{2t}{4 + t^2}.
@@ -37,4 +37,4 @@ The energy is maximal at $t = 0$, the CPA, falls to half at $|t| = 2$, and does 
 \label{eq:energy_inf}
 \end{equation}
 
-$\mathcal{H}_0$ is the hypothesis ``no cable'' and $\mathcal{H}_1$ ``cable''. $\sigma_n$ is the noise standard deviation per sample and $\eta$ the threshold. Under white Gaussian noise, \eqref{eq:energy_inf} is the GLRT for a signal in $\mathcal{S}$ with unknown amplitudes~\cite{hleis2026obf,kay1998detection,scharf1994matched}. With unit-norm, orthogonal templates, $\mathbf{y}$ is then Gaussian with covariance $\sigma_n^2 \mathbf{I}$ under $\mathcal{H}_0$, so $\Lambda$ follows a $\chi^2$ law with 2 degrees of freedom and the false-alarm probability at one lag is $P_{\mathrm{fa}} = \exp(-\eta/2)$ (\cref{app:h0}). In practice the threshold is calibrated empirically instead.
+$\mathcal{H}_0$ is the hypothesis ``no cable'' and $\mathcal{H}_1$ ``cable''. $\sigma_n$ is the noise standard deviation per sample and $\eta$ the threshold. Under white Gaussian noise, \eqref{eq:energy_inf} is the GLRT for a signal in $\mathcal{S}$ with unknown amplitudes~\cite{hleis2026obf,kay1998detection,scharf1994matched}. With unit-norm, orthogonal templates, $\mathbf{y}$ is then Gaussian with covariance $\sigma_n^2 \mathbf{I}$ under $\mathcal{H}_0$, so $\Lambda$ follows a $\chi^2$ law with 2 degrees of freedom and the false-alarm probability at one lag is $P_{\mathrm{fa}} = \exp(-\eta/2)$ (Appendix~\ref{app:h0}). In practice the threshold is calibrated empirically instead.

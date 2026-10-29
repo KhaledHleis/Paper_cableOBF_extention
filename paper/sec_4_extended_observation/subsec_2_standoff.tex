@@ -5,7 +5,7 @@ The coordinate of each sample along the estimated cable normal is
 x_k = (\mathbf{p}_{s,k} - \mathbf{p}_c) \cdot \hat{\mathbf{n}}(\hat{\varphi}), \qquad \hat{\mathbf{n}}(\varphi) = (\cos\varphi, -\sin\varphi),
 \label{eq:normal_coordinate}
 \end{equation}
-where $\mathbf{p}_{s,k}$ is the position~\eqref{eq:sensor_positions} of sensor $s$. A bearing error $\Delta\varphi$ rescales $x$ by about $(1 - \Delta\varphi \cot\theta)$ (\cref{app:amp}).
+where $\mathbf{p}_{s,k}$ is the position~\eqref{eq:sensor_positions} of sensor $s$. A bearing error $\Delta\varphi$ rescales $x$ by about $(1 - \Delta\varphi \cot\theta)$ (Appendix~\ref{app:amp}).
 
 \paragraph{Amplitude with known current (AMP).}
 The feed current of a repeatered cable is regulated by the shore station and known to the operator~\cite{chesnoy2016undersea}, and cable-locating systems have long used it to convert a field level into a distance~\cite{kdd1998maritime}. In the OBF the conversion uses a single coefficient, that of the channel on the odd function $\Phi_2$. For the vertical component this coefficient is $A_z = \sqrt{\pi/2}\,K_p$, and for the total field it is $A_2 = \sqrt{\pi/2}\,K_p \sin\delta$~\eqref{eq:total_field}, which does not depend on the cable bearing. With $K_p = \mu_0 I/(2\pi d)$ the standoff follows from the coefficient $\hat{A}$ of either channel,
@@ -18,7 +18,7 @@ $\hat{A}$ is the $\Phi_2$ coefficient of the least-squares fit of $[\Phi_1(x_k/d
 d_{j+1} = \frac{\mu_0 I}{2\pi}\,\sqrt{\frac{\pi}{2}}\,\frac{g}{|\hat{A}(d_j)|},
 \label{eq:amp_iteration}
 \end{equation}
-started from the prior standoff $d_0$ and stopped when the change falls below 1~cm. The true standoff is a fixed point for every truncation of the record, because a template at the right scale fits the record exactly. Each step halves the error on a long pass and reduces it much faster on a snake leg, so a few iterations suffice and the result does not depend on the starting value (\cref{app:amp}). Each step is a linear least-squares fit, so AMP needs no scan. With a trusted attitude AMP can use $B_z$. Otherwise it uses the total field, which needs no attitude, and together with GZ and GRAT the whole observation then needs only the heading. The bearing enters only through the template scale, and on a snake leg its effect is a small fraction of its effect on a fit of the profile shape (\cref{app:amp}).
+started from the prior standoff $d_0$ and stopped when the change falls below 1~cm. The true standoff is a fixed point for every truncation of the record, because a template at the right scale fits the record exactly. Each step halves the error on a long pass and reduces it much faster on a snake leg, so a few iterations suffice and the result does not depend on the starting value (Appendix~\ref{app:amp}). Each step is a linear least-squares fit, so AMP needs no scan. With a trusted attitude AMP can use $B_z$. Otherwise it uses the total field, which needs no attitude, and together with GZ and GRAT the whole observation then needs only the heading. The bearing enters only through the template scale, and on a snake leg its effect is a small fraction of its effect on a fit of the profile shape (Appendix~\ref{app:amp}).
 
 The price of AMP is a direct sensitivity to the assumed current. The effective magnetic current can differ from the shore-station current, for instance through return currents along the armour near shore ends, and a current error of 10\% biases $\hat{d}$ by about 10\%. Heave modulates the amplitude in the same way.
 
