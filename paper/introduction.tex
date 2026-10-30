@@ -1,11 +1,20 @@
 \section{Introduction}
 \label{sec:intro}
-Context and motivation. Related work can be cited like this~\cite{example2024}.
-State the contributions clearly:
-\begin{itemize}
-  \item first contribution;
-  \item second contribution;
-  \item third contribution.
-\end{itemize}
-The rest of the paper is organized as follows: \cref{sec:method} presents
-the method, \cref{sec:results} the results, and \cref{sec:conclusion} concludes.
+submarine telecommunication cable carry most intercontinental data traffic, and their inspection, burial assessment, repair and protection all start with knowing where they are. Often the cable is buried, in consequence, accoustic and optical methods lose it, and electromagnetic sensing becomes the main modality that penetrates the sediments.
+Submarine telecommunications cables hold DC current to power repeaters along the way, this current is about 1A. with the sea as the return path. they therefore produce a static line-current.
+At a distance of 2-4m from the cable this field is 100-50 nT, three order of magnitude below the geomagnetic field of about 48000nT.
+
+In previous work we derived two orthonormal basis functions called cable OBF, matched to an inifinite current. the resulting generalised likelihood ratio test (GLRT) detects the cable with fewer noise dimensions, and places the closest point of approach (CPA), more accuratly than dipole and multipolar receivers, in simulation and in lake experiment.
+
+detection alone does not follow a cable, however, a tracker must turn each detection into a description of the cable, fuse these detections over successive passes and decide where the next pass goes, under the motion and calibration error of a small submarine drone.
+
+In this paper we will not present the full loop of autonomus tracking, rather, we will focus on the observation part of the system. traslating the filter output from the first paper into observation of the cable location that is independent of the pass length taken, the cable bearing and depth. working in a latent space rather than working with the raw field measurements, mainly this paper forms the bridge between the research based on goemetry of cable tracking in robotics and the signal processing research that deals with low signal to noise ratio, thus traslating the methods used in robotics to make use of the latent space spanned by the cable obf, where measurements are less noisy and more consistent.
+
+the contributions of this paper are the following:
+- an amplitude phase description of every channel.
+- localization whose noiseless displacement under trunction is zero.
+- closed form formulas to extend observation.
+
+this paper assumes an submarine drone at a constant depth and velocity that follow the cable by crossing it constantly in a zigzag/snake pattern.
+
+the rest of the paper is partitionned as follows:
