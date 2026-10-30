@@ -1,0 +1,142 @@
+\section*{Nomenclature}
+\addcontentsline{toc}{section}{Nomenclature}
+
+Every symbol is defined again where it first appears, and this list gathers them with their units and the values used in the simulations.
+Vectors are bold.
+Horizontal positions are written (East, North) in metres, and three-dimensional vectors are in the local North--East--Down (NED) frame unless stated otherwise.
+
+\small
+\setlength{\LTpre}{6pt}
+\setlength{\LTpost}{6pt}
+\begin{longtable}{@{}l >{\raggedright\arraybackslash}p{0.42\linewidth} l >{\raggedright\arraybackslash}p{0.19\linewidth}@{}}
+\toprule
+Symbol & Meaning & Unit & Value or range \\
+\midrule
+\endfirsthead
+\toprule
+Symbol & Meaning & Unit & Value or range \\
+\midrule
+\endhead
+\midrule
+\multicolumn{4}{r}{\textit{continued on the next page}} \\
+\endfoot
+\bottomrule
+\endlastfoot
+
+\multicolumn{4}{@{}l}{\textbf{Geometry and cable field}} \\
+$I$ & DC feed current of the cable & \si{\ampere} & 1 \\
+$\mu_0/2\pi$ & vacuum permeability over $2\pi$ & \si{\nano\tesla\metre\per\ampere} & 200 \\
+$d$ & standoff, vertical distance from the sensors to the cable & \si{\metre} & 2--4 \\
+$z_b$, $h_w$ & burial depth below the seabed, water depth & \si{\metre} & -- \\
+$v$ & speed over ground & \si{\metre\per\second} & 1.0 \\
+$\theta$ & crossing angle (incidence) between the track and the cable & \si{\degree} & 30--90 \\
+$b$ & baseline between the two sensors (UNO port, DUO starboard) & \si{\metre} & 1 \\
+$A$ & snake amplitude, lateral excursion on each side of the cable & \si{\metre} & 6 \\
+$L$, $K=L/d$ & pass half-length, and the same in CPA distances & \si{\metre}, -- & $K=1.5$--$3$ on a snake leg \todo{\eqref{eq:K}} \\
+$\hat{\vect{x}}$, $\hat{\vect{y}}$, $\hat{\vect{z}}$ & CPA frame axes (normal to the cable, along the cable, down) & -- & -- \\
+$x$ & horizontal coordinate along the cable normal, origin at the CPA & \si{\metre} & -- \\
+$t_c$ & crossing time of a sensor & \si{\second} & -- \\
+$\tau=x/d$ & normalised coordinate, in CPA distances & -- & \todo{\eqref{eq:tau}} \\
+$T_s=d/(v\sin\theta)$ & duration of one CPA distance (template scale) & \si{\second} & 2.6--5.2 at $\theta=\SI{50}{\degree}$ \\
+$K_p=\mu_0 I/(2\pi d)$ & peak cable field at the CPA & \si{\nano\tesla} & 100--50 \todo{\eqref{eq:cable_field}} \\
+$K'=\sqrt{\pi/2}\,K_p$ & cable field scaled to the OBF coordinates & \si{\nano\tesla} & -- \\
+$\vect{B}_s=(B_n,B_y,B_z)$ & cable field in the CPA frame (normal, along the cable, down) & \si{\nano\tesla} & \todo{\eqref{eq:cable_field}} \\
+$\psi$ & angle from magnetic north to the cable normal & \si{\degree} & 0--360 \\
+\addlinespace
+\multicolumn{4}{@{}l}{\textbf{Geomagnetic field and channels}} \\
+$\vect{T}$, $|\vect{T}|$ & geomagnetic field and its norm & \si{\nano\tesla} & 47\,994 at Brest \\
+$\hat{\vect{T}}$ & unit vector of the geomagnetic field & -- & -- \\
+$\delta$ & geomagnetic inclination (dip) & \si{\degree} & 63.7 at Brest \\
+$S$ & total-field anomaly, $|\vect{T}+\vect{B}_s|-|\vect{T}|$ & \si{\nano\tesla} & -- \\
+$\Phi_1$, $\Phi_2$ & cable orthonormal basis functions (even, odd) & -- & \todo{\eqref{eq:obf}} \\
+$\mathcal{S}$ & plane spanned by $\Phi_1$ and $\Phi_2$ & -- & -- \\
+$\mathcal{H}$ & Hilbert transform & -- & -- \\
+$\Psi=\Phi_1+i\Phi_2$ & analytic template & -- & \todo{\eqref{eq:analytic}} \\
+$A_1$, $A_2$ & coordinates of the total-field anomaly on $\Phi_1$ and $\Phi_2$ & \si{\nano\tesla} & \todo{\eqref{eq:total_field}} \\
+$a$, $\beta$ & amplitude and phase of a channel in $\mathcal{S}$ & \si{\nano\tesla}, \si{\degree} & $\beta$: 64--116 for the total field at Brest \todo{\eqref{eq:channel}} \\
+$h=b\cos\theta/d$ & sensor separation in the normalised coordinate & -- & -- \\
+$\Gamma_1$, $\Gamma_2$ & gradiometer orthonormal basis functions (odd, even) & -- & \todo{\eqref{eq:grad_obf}} \\
+$\Delta s$ & gradiometer channel, difference DUO minus UNO & \si{\nano\tesla} & \todo{\eqref{eq:grad_obf}} \\
+\addlinespace
+\multicolumn{4}{@{}l}{\textbf{Measurement model}} \\
+$\vect{F}_b$ & field vector measured by a body-mounted sensor & \si{\nano\tesla} & \todo{\eqref{eq:recorded_field}} \\
+$\mat{E}_s$, $\vect{h}_s$ & residual soft-iron matrix and hard-iron offset after calibration & --, \si{\nano\tesla} & -- \\
+$\mat{R}^{nb}$ & rotation matrix between the NED and body frames (roll, pitch, yaw $\chi$) & -- & -- \\
+$\chi$ & yaw of the vehicle & \si{\degree} & -- \\
+$\vect{B}_{ext}$ & slow external field that is not the cable anomaly & \si{\nano\tesla} & -- \\
+$\vect{n}_s$ & sensor noise & \si{\nano\tesla} & -- \\
+$f_s$ & processing sample rate & \si{\hertz} & 50 \\
+\addlinespace
+\multicolumn{4}{@{}l}{\textbf{Detection and truncation}} \\
+$m(\tau)$, $m_k$ & recorded channel and its $k$-th sample & \si{\nano\tesla} & -- \\
+$t$ & lag of the matched filter, in CPA distances & -- & -- \\
+$\vect{y}(t)=(y_1,y_2)$ & matched-filter outputs at lag $t$ & \si{\nano\tesla} & \todo{\eqref{eq:filter_inf}} \\
+$c_{ij}(t)$ & correlation of $\Phi_i$ with $\Phi_j$ shifted by $t$ & -- & \todo{\eqref{eq:cij}} \\
+$\mat{C}(t)$ & matrix of the correlations $c_{ij}$ & -- & -- \\
+$\Lambda(t)$ & detection statistic & -- & \todo{\eqref{eq:energy_inf}} \\
+$\sigma_n$ & noise standard deviation per sample & \si{\nano\tesla} & -- \\
+$\eta$ & detection threshold & -- & calibrated empirically \\
+$\mathcal{H}_0$, $\mathcal{H}_1$ & hypotheses ``no cable'' and ``cable'' & -- & -- \\
+$P_{\mathrm{fa}}$ & false-alarm probability & -- & $\exp(-\eta/2)$ at one lag \\
+$\mathbf{1}$ & indicator function & -- & -- \\
+$c_{ij}^{K}$, $\mat{C}^{K}$ & correlations and their matrix under truncation to $K$ & -- & \todo{\eqref{eq:app_cK}} \\
+$E_i(K)$ & energy of $\Phi_i$ inside $|\tau|\le K$ & -- & \todo{\eqref{eq:trunc_energy_diff}} \\
+$I(K)$ & integral of $\Phi_1\Phi_2'$ over $|\tau|\le K$ & -- & tends to $1/2$ \\
+$D_1$, $D_2$, $X$ & terms of the truncated matched-filter energy & -- & \todo{\eqref{eq:app_energy_expansion}} \\
+$\hat{\tau}_{\mathrm{EP}}$ & energy-peak displacement, in CPA distances & -- & $4\sin 2\beta/(\pi K)$ \todo{\eqref{eq:ep_shift}} \\
+$k_0$ & coarse extremum of the first parity pass & samples & -- \\
+$w$, $n_f$ & half-width of the symmetric template and of the fine search & samples & \todo{\eqref{eq:parity_window}} \\
+$n$ & number of samples in a leg & -- & -- \\
+$m_z$ & vertical component of the cable field & \si{\nano\tesla} & -- \\
+$\star$ & correlation operator & -- & -- \\
+\addlinespace
+\multicolumn{4}{@{}l}{\textbf{Bearing and standoff}} \\
+$\vect{p}_k$ & GNSS position (East, North) at sample $k$ & \si{\metre} & -- \\
+$\vect{p}_{UNO,k}$, $\vect{p}_{DUO,k}$ & sensor positions & \si{\metre} & \todo{\eqref{eq:sensor_positions}} \\
+$\hat{\boldsymbol{\ell}}(\chi)$ & starboard unit vector & -- & -- \\
+$\vect{p}_c$ & crossing point, midpoint of the two fixes & \si{\metre} & -- \\
+$\varphi$ & cable bearing, clockwise from north, modulo \SI{180}{\degree} & \si{\degree} & -- \\
+$\varepsilon_1$, $\varepsilon_2$ & along-track errors of the UNO and DUO fixes & \si{\metre} & -- \\
+$Q_j$, $Q_j^{G}$ & matched-filter outputs of the component $j$ (East or North) of the field and of the gradiometer & \si{\nano\tesla} & \todo{\eqref{eq:rat_projection}} \\
+$\tilde{\Phi}_{1,s}$ & unit-norm zero-mean template $\Phi_1$ centred on the fix of sensor $s$ & -- & -- \\
+$G_E$, $G_N$ & East and North components of the horizontal gradiometer vector & \si{\nano\tesla} & -- \\
+$w_i$, $\sigma_i$ & fusion weight and standard deviation of bearing estimator $i$ & --, \si{\degree} & $w_i=\sigma_i^{-2}$ \\
+$\hat{\vect{n}}$, $\hat{\vect{u}}$ & unit vectors normal to and along the cable & -- & -- \\
+$x_k$ & coordinate of sample $k$ along the estimated cable normal & \si{\metre} & \todo{\eqref{eq:normal_coordinate}} \\
+$\hat{A}$ & $\Phi_2$ coefficient of the least-squares fit of a channel & \si{\nano\tesla} & -- \\
+$g$ & channel factor of AMP & -- & 1 for $B_z$, $\sin\delta$ for $S$ \\
+$d_0$, $d_j$ & prior standoff and standoff at iteration $j$ of AMP & \si{\metre} & $d_0=3$ \\
+$\lambda=d_j/d$ & ratio of the template scale to the true standoff & -- & -- \\
+$\kappa$ & error ratio of the AMP iteration & -- & $1/2$ on a long pass \\
+$\epsilon=\Delta\varphi\cot\theta$ & relative rescaling of $x$ caused by a bearing error & -- & -- \\
+\addlinespace
+\multicolumn{4}{@{}l}{\textbf{Experiment}} \\
+SNR & ratio of the noise power to the total-field power at the CPA for $d=\SI{1}{\metre}$ and $K\to\infty$ & \si{\decibel} & -- \\
+\end{longtable}
+\normalsize
+
+\vspace{4pt}
+\noindent
+\begin{tabular}{@{}l >{\raggedright\arraybackslash}p{0.8\linewidth}@{}}
+\toprule
+Acronym & Meaning \\
+\midrule
+CPA & closest point of approach \\
+OBF & orthonormal basis functions \\
+GLRT & generalised likelihood ratio test \\
+SNR & signal-to-noise ratio \\
+NED & North--East--Down frame \\
+AHRS & attitude and heading reference system \\
+GNSS & global navigation satellite system \\
+UNO, DUO & port and starboard sensors of the vehicle \\
+EP & energy-peak localiser \\
+ZC & parity channel of the vertical component \\
+GZ & parity channel of the gradiometer vertical component \\
+TDOD & bearing from the time difference of detections of the two sensors \\
+RAT & bearing from the OBF ratio \\
+GRAT & bearing from the gradiometer ratio \\
+FUS & fusion of the bearing estimators \\
+AMP & standoff from the amplitude with known current \\
+TRI & standoff from the two-sensor triangulation \\
+\bottomrule
+\end{tabular}
