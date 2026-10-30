@@ -1,18 +1,22 @@
-\subsection{what the platform measures}\label{subsec:signal_model}
+\subsection{What the Platform Measures}\label{subsec:signal_model}
 
-each body mounted sensor records the body frame vector : 
-
+Each body-mounted sensor records the body-frame vector
 \begin{equation}
-    \vect{F_b} = (\mat{I} + \mat{E_s})R^{nb}_{(Roll,Pitch,\chi)} (\vect{T}+\vect{B_s}+\vect{B_{ext}}) + \vect{h_s} + \vect{n_s}
+    \vect{F}_b = (\mat{I} + \mat{E}_s)\,\mathbf{R}^{nb}(\mathrm{roll},\mathrm{pitch},\chi)\,(\vect{T} + \vect{B}_s + \vect{B}_{ext}) + \vect{h}_s + \vect{n}_s.
     \label{eq:recorded_field}
 \end{equation}
+Here $\vect{B}_{ext}$ is an external magnetic field that is not the cable anomaly, and $\mat{E}_s$ and $\vect{h}_s$ are the soft-iron matrix and the hard-iron offset left after sensor calibration, which also absorb the static field of the platform that calibration did not account for.
+$\mathbf{R}^{nb}$ is the rotation matrix from the NED frame to the body frame, with $\chi$ the yaw of the vehicle, and applying it requires the attitude to be known.
+$\vect{n}_s$ is the sensor noise.
 
-where $\vect{B_{ext}}$ is an external magnetic field that is not the cable anomaly, $\mat{E_s},\vect{h_s}$ are the soft iron effect matrix and the hard iron offset which represents here their residue after sensor calibration and the platform static field unaccounted for in that stage, $R^{nb}_{(Roll,Pitch,\chi)}$ is a Rotation matrix from the body frame to NED frame with $\chi$ denoting the yaw of the drone, to apply this rotation matrix the attitude have to be known, $\vect{n_s}$ is the sensor noise.
+Three channels are formed from the recorded field.
+\begin{itemize}
+    \item \textbf{Total field} $|\vect{F}_b|$. This channel is the norm of the measured components. Its main advantage is its independence from the attitude, so the errors of attitude estimation are absent.
+    \item \textbf{Vector components in NED.} Contrary to \todo{[2]}, the processing is done in the NED frame, so the data are expressed in a frame that follows the vehicle but whose rotation is locked to north and east. Removing the regional field depends on the attitude estimate, which leaks an error from the regional field into the components that is comparable to the cable anomaly in this channel. This effect is tested in the later sections.
+    \item \textbf{Gradiometer DUO $-$ UNO.} $\vect{T}$ and $\vect{B}_{ext}$ are common to both sensors and cancel, so an attitude error then rotates only the difference vector. The attitude is still needed to orient the measurements in NED before the difference is taken.
+\end{itemize}
 
-the recorded field is processed to give 3 main channels:
-
-- Total-field $|\vect{F_b}|$ : this channel is the norm of the measured x,y,z components, its main advantage is its independance from the attitude, in result the errors of attitude estimation are abscent.
-- Vector Components in NED: in this paper contorrary to [2]; the processing is in the NED frame, thus the recorded data us in a frame that is its origin is following the drone but its rotation is locked to the north and east of the regional field, the removal of the regional magnetic field is dependent on the attitude estimation which will leak an error from the regional field that is comparable to the magnitude of the measuremtns in  this channel, this effect will be tested in later sections.
-- Gradiometer DUO-UNO: $\vect{T}$ and $\vect{B_{ext}}$ are common to both sensors and cancel, an attitude error then rotates only the diffrence vector but attitude is sitll needed to orient the measurements to calculate the diffrence in NED frame.
-
-the total field needs no attitude but mixes the two phases(its shape changes with $\beta$), the vector components have pure phase (shape does not varie with $\beta$) but need attitude, the gradient have pure phase (also vector components) and needs only the heading from the attitude, its usage comes with the cost of an amplitude reduction by $b|\cos \theta | / \sqrt{2} d$. this tradoff organises every comparison that follows.
+The total field needs no attitude but mixes the two phases, so its shape changes with $\beta$.
+The vector components have a pure phase, so their shape does not vary with $\beta$, but they need the attitude.
+The gradiometer also has a pure phase and needs only the heading from the attitude, at the cost of an amplitude reduced by the factor $b|\cos\theta|/(\sqrt{2}\,d)$.
+This trade-off organises every comparison that follows.
