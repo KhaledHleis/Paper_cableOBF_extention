@@ -1,20 +1,34 @@
 \section{Introduction}
 \label{sec:intro}
-submarine telecommunication cable carry most intercontinental data traffic, and their inspection, burial assessment, repair and protection all start with knowing where they are. Often the cable is buried, in consequence, accoustic and optical methods lose it, and electromagnetic sensing becomes the main modality that penetrates the sediments.
-Submarine telecommunications cables hold DC current to power repeaters along the way, this current is about 1A. with the sea as the return path. they therefore produce a static line-current.
-At a distance of 2-4m from the cable this field is 100-50 nT, three order of magnitude below the geomagnetic field of about 48000nT.
 
-In previous work we derived two orthonormal basis functions called cable OBF, matched to an inifinite current. the resulting generalised likelihood ratio test (GLRT) detects the cable with fewer noise dimensions, and places the closest point of approach (CPA), more accuratly than dipole and multipolar receivers, in simulation and in lake experiment.
+Submarine telecommunications cables carry most intercontinental data traffic \todo{\cite{chesnoy2016undersea}}, and their inspection, burial assessment, repair and protection all start with knowing where they are.
+Because the cable is often buried, acoustic and optical methods lose it, and electromagnetic sensing becomes the main modality that penetrates the sediments.
+These cables carry a DC current of about \SI{1}{\ampere} to power the repeaters along the way, with the sea as the return path, and they therefore produce a static line-current field.
+At a distance of \SIrange{2}{4}{\metre} from the cable this field lies between \SI{50}{\nano\tesla} and \SI{100}{\nano\tesla}, three orders of magnitude below the geomagnetic field of about \SI{48000}{\nano\tesla} \todo{\cite{alken2021igrf}}.
 
-detection alone does not follow a cable, however, a tracker must turn each detection into a description of the cable, fuse these detections over successive passes and decide where the next pass goes, under the motion and calibration error of a small submarine drone.
+In previous work we derived two orthonormal basis functions, called cable OBF, matched to an infinite line current \todo{\cite{hleis2026obf}}.
+The resulting generalized likelihood ratio test (GLRT) detects the cable with fewer noise dimensions and places the closest point of approach (CPA) more accurately than dipole and multipolar receivers, both in simulation and in a lake experiment.
 
-In this paper we will not present the full loop of autonomus tracking, rather, we will focus on the observation part of the system. traslating the filter output from the first paper into observation of the cable location that is independent of the pass length taken, the cable bearing and depth. working in a latent space rather than working with the raw field measurements, mainly this paper forms the bridge between the research based on goemetry of cable tracking in robotics and the signal processing research that deals with low signal to noise ratio, thus traslating the methods used in robotics to make use of the latent space spanned by the cable obf, where measurements are less noisy and more consistent.
+Detection alone does not follow a cable.
+A tracker must turn each detection into a description of the cable, fuse these descriptions over successive passes, and decide where the next pass goes, all under the motion and calibration errors of a small submarine drone \todo{\cite{xiang2016subsea,yu2018robust,zhang2024electromagnetic}}.
 
-the contributions of this paper are the following:
-- an amplitude phase description of every channel.
-- localization whose noiseless displacement under trunction is zero.
-- closed form formulas to extend observation.
+This paper does not present the full autonomous tracking loop and focuses instead on the observation stage.
+We translate the filter output of the first paper into observations of the cable that do not depend on the length of the pass, namely its location, bearing and standoff.
+By working in the latent space spanned by the cable OBF rather than on raw field measurements, where the data are less noisy and more consistent, the paper bridges two research communities.
+The first is geometry-based cable tracking in robotics, and the second is signal processing for low signal-to-noise ratio.
+Methods from robotics can thus operate on the latent space of the cable OBF.
 
-this paper assumes an submarine drone at a constant depth and velocity that follow the cable by crossing it constantly in a zigzag/snake pattern.
+The contributions of this paper are the following:
+\begin{itemize}
+  \item an amplitude and phase description of every OBF channel,
+  \item a localization whose noiseless displacement under truncation is zero,
+  \item closed-form expressions that extend the observation to bearing and standoff.
+\end{itemize}
 
-the rest of the paper is partitionned as follows:
+We assume a submarine drone moving at constant depth and velocity that follows the cable by repeatedly crossing it in a zigzag pattern.
+
+The rest of the paper is organized as follows.
+\todo{\Cref{sec:setup}} presents the survey geometry and the signal model.
+\todo{\Cref{subsec:det_loc_trunc}} addresses detection and localization under truncation.
+\todo{\Cref{sec:observation}} derives the bearing and standoff observations from a single crossing.
+\todo{\Cref{sec:experiment}} reports the experiments.
